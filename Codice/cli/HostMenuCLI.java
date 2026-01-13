@@ -4,23 +4,24 @@ import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanRecensioni;
 import appolloni.migliano.bean.BeanStruttura;
 import appolloni.migliano.bean.BeanUtenti;
-import appolloni.migliano.controller.ControllerGestioneStruttura;
+import appolloni.migliano.controller.ControllerGestioneStrutture;
 import appolloni.migliano.controller.ControllerRecensioni;
 
 public class HostMenuCLI {
 
     private final Scanner scanner;
     private final BeanUtenti beanUtente;
-    private final ControllerGestioneStruttura controllerGestioneStruttura;
+    private final ControllerGestioneStrutture controllerGestioneStruttura;
     private final ControllerRecensioni controllerRecensioni;
 
     public HostMenuCLI(BeanUtenti utente) {
         this.scanner = new Scanner(System.in);
         this.beanUtente = utente;
-        this.controllerGestioneStruttura = new ControllerGestioneStruttura();
+        this.controllerGestioneStruttura = new ControllerGestioneStrutture();
         this.controllerRecensioni = new ControllerRecensioni();
     }
 
@@ -69,7 +70,7 @@ public class HostMenuCLI {
                 }
 
             } catch (Exception e) {
-                System.err.println("Errore nel caricamento dati: " + e.getMessage());
+                 HelperErrori.errore("Errore nel caricamento dati:", e.getMessage());
                 back = true;
             }
         }
@@ -97,7 +98,7 @@ public class HostMenuCLI {
                 controllerGestioneStruttura.cambiaFoto(beanUtente.getEmail(), file.getName());
                 System.out.println(" Foto aggiornata con successo (Simulazione salvataggio)");
             } catch (Exception e) {
-                System.out.println(" Errore aggiornamento foto: " + e.getMessage());
+                HelperErrori.errore("Errore aggiornamento foto:", e.getMessage());
             }
         } else {
             System.out.println(" Errore: File non trovato al percorso specificato.");
