@@ -3,6 +3,7 @@ package appolloni.migliano.cli;
 import java.util.List;
 import java.util.Scanner;
 
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanRecensioni;
 import appolloni.migliano.bean.BeanStruttura;
 import appolloni.migliano.bean.BeanUtenti;
@@ -35,15 +36,19 @@ public class DettagliStrutturaCLI {
 
             // 2. Caricamento e Visualizzazione Recensioni
             System.out.println("\n--- RECENSIONI UTENTI ---");
-            List<BeanRecensioni> lista = controllerRecensione.cercaRecensioniPerStruttura(beanStruttura);
-            if (lista.isEmpty()) {
+            try {
+                List<BeanRecensioni> lista = controllerRecensione.cercaRecensioniPerStruttura(beanStruttura);
+                 if (lista.isEmpty()) {
                 System.out.println("[ Nessuna recensione ancora presente ]");
             } else {
                 for (BeanRecensioni b : lista) {
                     System.out.printf("- %s: %d/5 ⭐ | %s\n", b.getAutore(), b.getVoto(), b.getTesto());
                 }
             }
-
+            } catch (Exception e) {
+               HelperErrori.errore("Errore caricamento recensioni: ", e.getMessage());
+            }
+            
             // 3. Menu Azioni
             System.out.println("\n----------------------------------------");
             System.out.println("S) Scrivi una recensione");
