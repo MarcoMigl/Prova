@@ -21,13 +21,14 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Compile Java files
-        run: javac -d build $(find Codice -name "*.java")
-
       - name: Run SonarCloud Analysis
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.java.binaries=build
+            -Dsonar.projectKey=MarcoMigl_Prova
+            -Dsonar.organization=marcomigl
+            -Dsonar.projectName=Prova
+            -Dsonar.sources=Codice
+            -Dsonar.java.binaries=   # vuoto: saltare compilazione
