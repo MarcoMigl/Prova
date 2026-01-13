@@ -46,6 +46,7 @@ jobs:
           -Dsonar.projectKey=MarcoMigl_Prova
           -Dsonar.organization=marcomigl
           -Dsonar.host.url=https://sonarcloud.io
+
         
         # QUA È LA MODIFICA IMPORTANTE:
         working-directory: ./demo
