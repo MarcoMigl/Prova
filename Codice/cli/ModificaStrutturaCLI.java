@@ -1,22 +1,24 @@
 package appolloni.migliano.cli;
 
 import java.util.Scanner;
+
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanStruttura;
 import appolloni.migliano.bean.BeanUtenti;
-import appolloni.migliano.controller.ControllerGestioneStruttura;
+import appolloni.migliano.controller.ControllerGestioneStrutture;
 
 public class ModificaStrutturaCLI {
 
     private final Scanner scanner;
     private final BeanStruttura strutturaCorrente;
     private final String vecchioNome;
-    private final ControllerGestioneStruttura controllerApp;
+    private final ControllerGestioneStrutture controllerApp;
 
     public ModificaStrutturaCLI(BeanUtenti host, BeanStruttura struttura) {
         this.scanner = new Scanner(System.in);
         this.strutturaCorrente = struttura;
         this.vecchioNome = struttura.getName(); 
-        this.controllerApp = new ControllerGestioneStruttura();
+        this.controllerApp = new ControllerGestioneStrutture();
     }
 
     public void start() {
@@ -61,7 +63,7 @@ public class ModificaStrutturaCLI {
             } 
             
             if (strutturaCorrente.getName() == null || strutturaCorrente.getName().isEmpty()) {
-                System.err.println(" Errore: Il nome non può essere vuoto!");
+                HelperErrori.errore("Il nome non può essere vuoto!","Inserire il nome");
                 return;
             }
 
@@ -70,7 +72,7 @@ public class ModificaStrutturaCLI {
             System.out.println("\n Struttura aggiornata con successo!");
 
         } catch (Exception e) {
-            System.err.println("\n Errore durante il salvataggio: " + e.getMessage());
+             HelperErrori.errore("Errore salvataggio:", e.getMessage());
         }
     }
 
