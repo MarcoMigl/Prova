@@ -2,6 +2,8 @@ package appolloni.migliano.cli;
 
 import java.util.Scanner;
 
+import appolloni.migliano.ClassiDiErrori.CampiVuotiException;
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanStruttura;
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerCreazioneStrutture;
@@ -52,7 +54,7 @@ public class CreazioneStruttureCLI {
 
             // 3. Validazione e invio
             if (nome.isEmpty() || citta.isEmpty() || indirizzo.isEmpty() || gestore.isEmpty() || tipoAtt.isEmpty() || orario.isEmpty()) {
-                throw new IllegalArgumentException("Informazioni mancanti! Tutti i campi sono obbligatori.");
+                throw new CampiVuotiException("Informazioni mancanti! Tutti i campi sono obbligatori.");
             }
 
             BeanStruttura beanStruttura = new BeanStruttura(tipo, nome, citta, indirizzo, orario, wifi, ristorazione, tipoAtt, gestore);
@@ -73,7 +75,7 @@ public class CreazioneStruttureCLI {
             System.out.println("Riprovare? (s/n)");
             if(scanner.nextLine().equalsIgnoreCase("s")) start();
         } catch (Exception e) {
-            System.err.println("\n Errore imprevisto: " + e.getMessage());
+            HelperErrori.errore("Errore imprevisto: ", e.getMessage());
         }
     }
 
