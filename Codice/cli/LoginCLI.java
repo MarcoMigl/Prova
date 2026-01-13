@@ -5,6 +5,7 @@ import java.util.Scanner;
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerLogin;
 
+
 public class LoginCLI {
 
     private final ControllerLogin controller;
