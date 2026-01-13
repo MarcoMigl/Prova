@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanGruppo;
 import appolloni.migliano.bean.BeanMessaggi;
 import appolloni.migliano.bean.BeanUtenti;
@@ -46,7 +47,8 @@ public class ChatCLI {
                     default -> System.out.println("Scelta non valida.");
                 }
             } catch (SQLException e) {
-                System.err.println("Errore database: " + e.getMessage());
+                 HelperErrori.errore("Errore Database: ", e.getMessage());
+
                 // Se c'è un errore grave al database, per uscire
                 // exit = true; 
             }
@@ -65,17 +67,19 @@ public class ChatCLI {
         }
             
         } catch (Exception e) {
-            e.printStackTrace();
+            HelperErrori.errore("Errore caricamento: ", e.getMessage());
+
         } 
     }
 
-    private void inviaMessaggioUI() throws SQLException {
+    private void inviaMessaggioUI() throws SQLException{
         System.out.print("Scrivi messaggio: ");
         String testo = scanner.nextLine();
        try {
            controller.inviaMessaggio(utenteLoggato, gruppoCorrente, testo);
        } catch (Exception e) {
-        e.printStackTrace();
+         HelperErrori.errore("Errore: ", e.getMessage());
+
        } 
     }
 
@@ -85,7 +89,8 @@ public class ChatCLI {
            try {
                controller.abbandonaGruppo(utenteLoggato, gruppoCorrente);
            } catch (Exception e) {
-            e.printStackTrace();
+             HelperErrori.errore("Errore: ", e.getMessage());
+
            } 
             System.out.println("Gruppo abbandonato.");
         }
