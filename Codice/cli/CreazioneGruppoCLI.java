@@ -3,6 +3,7 @@ package appolloni.migliano.cli;
 import java.util.List;
 import java.util.Scanner;
 
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanGruppo;
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerCreazioneGruppo;
@@ -60,9 +61,11 @@ public class CreazioneGruppoCLI {
             System.out.println("Sei stato aggiunto automaticamente come Amministratore.");
 
         } catch (IllegalArgumentException e) {
-            System.err.println("\n Errore di validazione: " + e.getMessage());
+             HelperErrori.errore("Errore validazione: ", e.getMessage());
+
         } catch (Exception e) {
-            System.err.println("\n Errore imprevisto: " + e.getMessage());
+             HelperErrori.errore("Errore imprevisto: ", e.getMessage());
+
         }
     }
 
