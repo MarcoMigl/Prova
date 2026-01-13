@@ -3,16 +3,17 @@ package appolloni.migliano.cli;
 import java.util.Scanner;
 
 import appolloni.migliano.bean.BeanUtenti;
-import appolloni.migliano.controller.ControllerProfiloUtente;
+import appolloni.migliano.controller.ControllerCreazioneUtente;
+import appolloni.migliano.HelperErrori;
 
 public class ProfiloUtenteCLI {
 
-    private final ControllerProfiloUtente controller;
+    private final ControllerCreazioneUtente controller;
     private final Scanner scanner;
     private final BeanUtenti utenteLoggato;
 
     public ProfiloUtenteCLI(BeanUtenti utente) {
-        this.controller = new ControllerProfiloUtente();
+        this.controller = new ControllerCreazioneUtente();
         this.scanner = new Scanner(System.in);
         this.utenteLoggato = utente;
     }
@@ -49,7 +50,7 @@ public class ProfiloUtenteCLI {
             System.out.println("Email:   " + risultato.getEmail());
             System.out.println("Città:   " + risultato.getCitta());
         } catch (Exception e) {
-            System.err.println("Errore nel recupero dati: " + e.getMessage());
+            HelperErrori.errore("Errore nel recupero dati: ", e.getMessage());
         }
     }
 
