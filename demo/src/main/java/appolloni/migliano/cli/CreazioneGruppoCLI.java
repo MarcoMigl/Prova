@@ -6,16 +6,16 @@ import java.util.Scanner;
 import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanGruppo;
 import appolloni.migliano.bean.BeanUtenti;
-import appolloni.migliano.controller.ControllerCreazioneGruppo;
+import appolloni.migliano.controller.ControllerGestioneGruppo;
 
 public class CreazioneGruppoCLI {
 
-    private final ControllerCreazioneGruppo controller;
+    private final ControllerGestioneGruppo controller;
     private final Scanner scanner;
     private final BeanUtenti utenteLoggato;
 
     public CreazioneGruppoCLI(BeanUtenti utente) {
-        this.controller = new ControllerCreazioneGruppo();
+        this.controller = new ControllerGestioneGruppo();
         this.scanner = new Scanner(System.in);
         this.utenteLoggato = utente;
     }
