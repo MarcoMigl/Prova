@@ -2,6 +2,9 @@ package appolloni.migliano.cli;
 
 import java.util.Scanner;
 
+import appolloni.migliano.ClassiDiErrori.CampiVuotiException;
+import appolloni.migliano.ClassiDiErrori.EmailNonValidaException;
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerCreazioneUtente;
 
@@ -35,8 +38,11 @@ public class CreazioneUtenteCLI {
             String password = scanner.nextLine().trim();
 
             // Validazione base dei campi obbligatori
-            if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || citta.isEmpty() || password.isEmpty()||!email.contains("@")) {
-                throw new IllegalArgumentException("Controlli di aver inserito una mail valida o  dati correttamente.");
+            if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || citta.isEmpty() || password.isEmpty()) {
+                throw new CampiVuotiException("Controlli di aver inserito una mail valida o  dati correttamente.");
+            }
+            if(!email.contains("@")){
+                throw new EmailNonValidaException("Inserire una email valida.");
             }
 
             // 3. Creazione del BeanUtenti
@@ -52,10 +58,14 @@ public class CreazioneUtenteCLI {
                 
             }else{
                 // 4. Chiamata al Controller per il salvataggio nel DBMS
-            controller.creazioneUtente(beanUtente);
-            System.out.println("\n Registrazione effettuata con successo!");
-            }
-
+                try {
+                    controller.creazioneUtente(beanUtente);
+                    System.out.println("\n Registrazione effettuata con successo!");
+                } catch (Exception e) {
+                    HelperErrori.errore("Errore caricamento: ", e.getMessage());
+                 }
+           
+        }
 
             // 5. NAVIGAZIONE POST-REGISTRAZIONE
             // Qui gestiamo il reindirizzamento in base al ruolo
@@ -71,11 +81,16 @@ public class CreazioneUtenteCLI {
                 new MenuPrincipaleCLI(beanUtente).start();
             }
 
-        } catch (IllegalArgumentException e) {
+        } catch (CampiVuotiException e) {
             System.err.println("\n Errore nei dati inseriti: " + e.getMessage());
             System.out.println("Vuoi riprovare la registrazione? (s/n)");
             if(scanner.nextLine().equalsIgnoreCase("s")) start();
-        } catch (Exception e) {
+        }catch (EmailNonValidaException e) {
+            System.err.println("\n Errore nei dati inseriti: " + e.getMessage());
+            System.out.println("Vuoi riprovare la registrazione? (s/n)");
+            if(scanner.nextLine().equalsIgnoreCase("s")) start();
+        }
+         catch (Exception e) {
             System.err.println("\n Errore tecnico durante la registrazione: " + e.getMessage());
             // In caso di errore nel DB, mostriamo lo stack trace per debug (opzionale)
             // e.printStackTrace(); 
