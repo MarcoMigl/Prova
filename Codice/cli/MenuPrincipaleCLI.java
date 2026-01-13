@@ -3,20 +3,21 @@ package appolloni.migliano.cli;
 import java.util.List;
 import java.util.Scanner;
 
+import appolloni.migliano.HelperErrori;
 import appolloni.migliano.bean.BeanGruppo;
 import appolloni.migliano.bean.BeanUtenti;
-import appolloni.migliano.controller.ControllerGestioneGruppi;
+import appolloni.migliano.controller.ControllerGestioneGruppo;
 
 public class MenuPrincipaleCLI {
 
     private final Scanner scanner;
     private final BeanUtenti bean;
-    private final ControllerGestioneGruppi gestioneGruppi;
+    private final ControllerGestioneGruppo gestioneGruppi;
 
     public MenuPrincipaleCLI(BeanUtenti utente) {
         this.scanner = new Scanner(System.in);
         this.bean = utente;
-        this.gestioneGruppi = new ControllerGestioneGruppi();
+        this.gestioneGruppi = new ControllerGestioneGruppo();
     }
 
     public void start() {
@@ -45,7 +46,7 @@ public class MenuPrincipaleCLI {
                 }
             } catch (Exception e) {
                 // Questo cattura l'errore SQL o logico e permette al menu di continuare a vivere
-                System.err.println(" Errore nel caricamento dei gruppi: " + e.getMessage());
+                HelperErrori.errore("Errore nel caricamento dei gruppi", e.getMessage());
             }
 
             System.out.println("----------------------------------------");
