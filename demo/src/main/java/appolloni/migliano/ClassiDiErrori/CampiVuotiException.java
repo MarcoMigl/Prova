@@ -1,4 +1,4 @@
-package appolloni.migliano.exception;
+package appolloni.migliano.ClassiDiErrori;
 
 public class CampiVuotiException extends Exception{
     public CampiVuotiException(String mess){
