@@ -1,0 +1,56 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launcher",
+            "request": "launch",
+            "mainClass": "appolloni.migliano.Launcher",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
+            "name": "1. GUI - DATABASE (Standard)",
+            "request": "launch",
+            "mainClass": "appolloni.migliano.Launcher",
+            "projectName": "demo",
+            "vmArgs": "--enable-native-access=ALL-UNNAMED --add-opens javafx.graphics/javafx.scene=ALL-UNNAMED --add-opens javafx.controls/javafx.scene.control=ALL-UNNAMED"
+        },
+        {
+            "type": "java",
+            "name": "2. GUI - FILE SYSTEM",
+            "request": "launch",
+            "mainClass": "appolloni.migliano.Launcher",
+            "projectName": "demo",
+            "args": "FILE",
+            "vmArgs": "--enable-native-access=ALL-UNNAMED --add-opens javafx.graphics/javafx.scene=ALL-UNNAMED --add-opens javafx.controls/javafx.scene.control=ALL-UNNAMED"
+        },
+        {
+            "type": "java",
+            "name": "3. CLI - DATABASE",
+            "request": "launch",
+            "mainClass": "appolloni.migliano.Launcher",
+            "projectName": "demo",
+            "args": "DB CLI",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "4. CLI - FILE SYSTEM",
+            "request": "launch",
+            "mainClass": "appolloni.migliano.Launcher",
+            "projectName": "demo",
+            "args": "FILE CLI",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "5. DEMO (GUI in Memoria)",
+            "request": "launch",
+            "mainClass": "appolloni.migliano.Launcher",
+            "projectName": "demo",
+            "args": "DEMO",
+            "vmArgs": "--enable-native-access=ALL-UNNAMED --add-opens javafx.graphics/javafx.scene=ALL-UNNAMED --add-opens javafx.controls/javafx.scene.control=ALL-UNNAMED"
+        }
+    ]
+}
