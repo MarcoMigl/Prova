@@ -9,26 +9,20 @@ on:
       - master
 
 jobs:
-  sonarcloud:
-    name: Analyze on SonarCloud
+  sonar:
+    name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up JDK 17
+      - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          distribution: temurin
+          java-version: 17
 
-      - name: Run SonarCloud Scan
+      - name: Run SonarCloud analysis
         uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          organization: marcomigl
-          projectKey: MarcoMigl_Prova
-          projectName: Prova
-          args: >
-            -Dsonar.sources=Codice
-            -Dsonar.java.binaries=
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
