@@ -1,6 +1,5 @@
-name: SonarCloud Scan
+name: SonarCloud
 
-# Trigger del workflow: parte su push o PR verso main
 on:
   push:
     branches:
@@ -11,32 +10,25 @@ on:
 
 jobs:
   sonarcloud:
+    name: Analyze on SonarCloud
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Prendi il codice del repository
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Imposta Java 17 (richiesto da SonarCloud)
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3️⃣ Debug (opzionale) – controlla che GitHub veda la cartella Codice
-      - name: List workspace
-        run: ls -R
-
-      # 4️⃣ Analisi SonarCloud
-      - name: SonarCloud Scan
+      - name: Run SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
+          organization: marcomigl
+          projectKey: MarcoMigl_Prova
+          projectName: Prova
           args: >
-            -Dsonar.projectKey=MarcoMigl_Prova
-            -Dsonar.organization=marcomigl
-            -Dsonar.projectName=Prova
             -Dsonar.sources=Codice
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            -Dsonar.java.binaries=
+
