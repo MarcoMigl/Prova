@@ -37,6 +37,6 @@ jobs:
             -Dsonar.projectKey=MarcoMigl_Prova
             -Dsonar.organization=marcomigl
             -Dsonar.projectName=Prova
-            -Dsonar.sources=Codice
+            -Dsonar.sources=Prova/Codice
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
