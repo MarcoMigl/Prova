@@ -22,29 +22,29 @@ public class ModificaStrutturaCLI {
     }
 
     public void start() {
-        System.out.println("\n========================================");
-        System.out.println("       MODIFICA DELLA STRUTTURA        ");
-        System.out.println("========================================");
-        System.out.println("Lascia vuoto e premi Invio per mantenere il valore attuale.");
+        System.out.println("\n========================================"); //NOSONAR
+        System.out.println("       MODIFICA DELLA STRUTTURA        "); //NOSONAR
+        System.out.println("========================================"); //NOSONAR
+        System.out.println("Lascia vuoto e premi Invio per mantenere il valore attuale."); //NOSONAR
 
         try {
             // 1. Modifica Nome
-            System.out.print("Nome attuale [" + strutturaCorrente.getName() + "]: ");
+            System.out.print("Nome attuale [" + strutturaCorrente.getName() + "]: "); //NOSONAR
             String nuovoNome = scanner.nextLine().trim();
             if (!nuovoNome.isEmpty()) strutturaCorrente.setName(nuovoNome);
 
             // 2. Modifica Indirizzo
-            System.out.print("Indirizzo attuale [" + strutturaCorrente.getIndirizzo() + "]: ");
+            System.out.print("Indirizzo attuale [" + strutturaCorrente.getIndirizzo() + "]: "); //NOSONAR
             String nuovoIndirizzo = scanner.nextLine().trim();
             if (!nuovoIndirizzo.isEmpty()) strutturaCorrente.setIndirizzo(nuovoIndirizzo);
 
             // 3. Modifica Città
-            System.out.print("Città attuale [" + strutturaCorrente.getCitta() + "]: ");
+            System.out.print("Città attuale [" + strutturaCorrente.getCitta() + "]: "); //NOSONAR
             String nuovaCitta = scanner.nextLine().trim();
             if (!nuovaCitta.isEmpty()) strutturaCorrente.setCitta(nuovaCitta);
 
             // 4. Modifica Orario
-            System.out.print("Orario attuale [" + strutturaCorrente.getOrario() + "]: ");
+            System.out.print("Orario attuale [" + strutturaCorrente.getOrario() + "]: "); //NOSONAR
             String nuovoOrario = scanner.nextLine().trim();
             if (!nuovoOrario.isEmpty()) strutturaCorrente.setOrario(nuovoOrario);
 
@@ -55,7 +55,7 @@ public class ModificaStrutturaCLI {
             strutturaCorrente.setRistorazione(chiediModificaBoolean("Ristorazione", strutturaCorrente.hasRistorazione()));
 
             String fotoAttuale = strutturaCorrente.getFoto();
-            System.out.print("Percorso foto attuale [" + (fotoAttuale != null && !fotoAttuale.isEmpty() ? fotoAttuale : "Nessuna") + "]: ");
+            System.out.print("Percorso foto attuale [" + (fotoAttuale != null && !fotoAttuale.isEmpty() ? fotoAttuale : "Nessuna") + "]: "); //NOSONAR
             String nuovaFoto = scanner.nextLine().trim();
             
             if (!nuovaFoto.isEmpty()) {
@@ -63,16 +63,16 @@ public class ModificaStrutturaCLI {
             } 
             
             if (strutturaCorrente.getName() == null || strutturaCorrente.getName().isEmpty()) {
-                System.out.println("Il nome non può essere vuoto! Inserire il nome");
+                System.out.println("Il nome non può essere vuoto! Inserire il nome"); //NOSONAR
                 return;
             }
 
             // SALVATAGGIO
             controllerApp.aggiornaStruttura(strutturaCorrente, vecchioNome);
-            System.out.println("\n Struttura aggiornata con successo!");
+            System.out.println("\n Struttura aggiornata con successo!"); //NOSONAR
 
         } catch (Exception e) {
-             System.out.println("Errore salvataggio");
+             System.out.println("Errore salvataggio"); //NOSONAR
         }
     }
 
@@ -81,7 +81,7 @@ public class ModificaStrutturaCLI {
      */
     private boolean chiediModificaBoolean(String campo, boolean valoreAttuale) {
         String stato = valoreAttuale ? "SI" : "NO";
-        System.out.print(campo + " attuale [" + stato + "]. Cambiare? (s/n): ");
+        System.out.print(campo + " attuale [" + stato + "]. Cambiare? (s/n): "); //NOSONAR
         String risp = scanner.nextLine().trim().toLowerCase();
         
         if (risp.equals("s") || risp.equals("si")) {
@@ -91,3 +91,4 @@ public class ModificaStrutturaCLI {
     }
 
 }
+
