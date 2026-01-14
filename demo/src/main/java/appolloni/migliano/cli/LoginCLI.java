@@ -1,7 +1,7 @@
 package appolloni.migliano.cli;
 
 import java.util.Scanner;
-import java.util.Arrays; // Aggiunto per pulizia sicurezza
+import java.util.Arrays; 
 
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerLogin;
@@ -24,18 +24,10 @@ public class LoginCLI {
         
         System.out.print("Password (I caratteri inseriti non saranno visibili): "); //NOSONAR
         String password = "";
-
-        // Lettura sicura da terminale
-        if (System.console() != null) {
-            char[] passwordChars = System.console().readPassword();
-            password = new String(passwordChars);
-            // Pratica di sicurezza: cancella l'array dalla memoria dopo aver creato la stringa
-            Arrays.fill(passwordChars, ' '); 
-        } else {
-            // Backup per ambienti senza console (es. alcuni IDE)
-            password = scanner.nextLine().trim();
-        }
-
+        char[] passwordChars = System.console().readPassword();
+        password = new String(passwordChars);
+        Arrays.fill(passwordChars, ' '); 
+        
         if (email.isEmpty() || password.isEmpty()) {
             System.err.println("Errore: informazioni mancanti!"); //NOSONAR
             start();
@@ -74,4 +66,5 @@ public class LoginCLI {
         }
     }
 }
+
 
