@@ -21,11 +21,11 @@ public class CreazioneGruppoCLI {
     }
 
     public void start() {
-        System.out.println("\n--- CREAZIONE NUOVO GRUPPO DI STUDIO ---");
+        System.out.println("\n--- CREAZIONE NUOVO GRUPPO DI STUDIO ---"); //NOSONAR
 
         // Controllo sul tipo utente
         if (!"Studente".equalsIgnoreCase(utenteLoggato.getTipo())) {
-            System.out.println("Errore: Solo gli studenti possono creare gruppi.");
+            System.out.println("Errore: Solo gli studenti possono creare gruppi."); //NOSONAR
             return;
         }
 
@@ -38,15 +38,15 @@ public class CreazioneGruppoCLI {
             String materia = scanner.nextLine();
 
             // 2. Localizzazione e recupero strutture
-            System.out.print("Inserisci la città: ");
+            System.out.print("Inserisci la città: "); //NOSONAR
             String citta = scanner.nextLine();
 
             List<String> strutture = controller.getListaStruttureDisponibili(citta);
             String luogoScelto = "";
 
             if (strutture.isEmpty()) {
-                System.out.println("Nessuna struttura trovata in questa città. Inserimento manuale.");
-                System.out.print("Inserisci il luogo: ");
+                System.out.println("Nessuna struttura trovata in questa città. Inserimento manuale."); //NOSONAR
+                System.out.print("Inserisci il luogo: "); //NOSONAR
                 luogoScelto = scanner.nextLine();
             } else {
                 luogoScelto = selezionaStrutturaUI(strutture);
@@ -57,40 +57,41 @@ public class CreazioneGruppoCLI {
             
             controller.creaGruppo(utenteLoggato, nuovoGruppo);
             
-            System.out.println("\n✅ Gruppo '" + nome + "' creato con successo!");
-            System.out.println("Sei stato aggiunto automaticamente come Amministratore.");
+            System.out.println("\n✅ Gruppo '" + nome + "' creato con successo!"); //NOSONAR
+            System.out.println("Sei stato aggiunto automaticamente come Amministratore."); //NOSONAR
 
         } catch (IllegalArgumentException e) {
-             System.out.println("Errore validazione");
+             System.out.println("Errore validazione"); //NOSONAR
 
         } catch (Exception e) {
-             System.out.println("Errore imprevisto");
+             System.out.println("Errore imprevisto"); //NOSONAR
 
         }
     }
 
     private String selezionaStrutturaUI(List<String> strutture) {
-        System.out.println("\nStrutture disponibili a " + utenteLoggato.getCitta() + ":");
+        System.out.println("\nStrutture disponibili a " + utenteLoggato.getCitta() + ":"); //NOSONAR
         for (int i = 0; i < strutture.size(); i++) {
-            System.out.println((i + 1) + ") " + strutture.get(i));
+            System.out.println((i + 1) + ") " + strutture.get(i)); //NOSONAR
         }
-        System.out.println((strutture.size() + 1) + ") Altro (inserimento manuale)");
+        System.out.println((strutture.size() + 1) + ") Altro (inserimento manuale)"); //NOSONAR
 
         while (true) {
-            System.out.print("Seleziona un'opzione: ");
+            System.out.print("Seleziona un'opzione: "); //NOSONAR
             String input = scanner.nextLine();
             try {
                 int scelta = Integer.parseInt(input);
                 if (scelta >= 1 && scelta <= strutture.size()) {
                     return strutture.get(scelta - 1);
                 } else if (scelta == strutture.size() + 1) {
-                    System.out.print("Inserisci il nome del luogo: ");
+                    System.out.print("Inserisci il nome del luogo: "); //NOSONAR
                     return scanner.nextLine();
                 }
             } catch (NumberFormatException e) {
                 // Continua il loop
             }
-            System.out.println("Scelta non valida.");
+            System.out.println("Scelta non valida."); //NOSONAR
         }
     }
+
 }
