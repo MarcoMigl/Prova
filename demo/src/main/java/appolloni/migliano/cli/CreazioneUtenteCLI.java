@@ -1,8 +1,6 @@
 package appolloni.migliano.cli;
 
 import java.util.Scanner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerGestioneUtente;
@@ -11,7 +9,6 @@ import appolloni.migliano.exception.EmailNonValidaException;
 
 public class CreazioneUtenteCLI {
 
-    private static final Logger logger = LoggerFactory.getLogger(CreazioneUtenteCLI.class);
     private final ControllerGestioneUtente controller;
     private final Scanner scanner;
 
@@ -41,6 +38,7 @@ public class CreazioneUtenteCLI {
 
             BeanUtenti beanUtenti = new BeanUtenti(tipo, nome, cognome, email, password, citta);
 
+            // Gestione Host vs Studente
             if ("Host".equalsIgnoreCase(tipo)) {
                 gestisciRegistrazioneHost(beanUtenti);
             } else {
@@ -53,8 +51,8 @@ public class CreazioneUtenteCLI {
             System.err.println("\n Errore nei dati: " + e.getMessage()); //NOSONAR
             chiediRiprova();
         } catch (Exception e) {
-            logger.error("Errore tecnico durante la registrazione: ", e);
-            System.err.println("\n Si è verificato un errore tecnico imprevisto."); //NOSONAR
+            // Qui gestiamo l'errore generico senza Logger
+            System.err.println("\n Errore tecnico: " + e.getMessage()); //NOSONAR
         }
     }
 
@@ -68,17 +66,17 @@ public class CreazioneUtenteCLI {
     }
 
     private void salvaUtenteNelSistema(BeanUtenti bean) {
+        // Metodo estratto per eliminare il nested try
         try {
             controller.creazioneUtente(bean);
             System.out.println("\n Registrazione effettuata con successo!"); //NOSONAR
         } catch (Exception e) {
-            logger.error("Errore salvataggio DBMS: ", e);
-            System.err.println("Errore durante il salvataggio dei dati."); //NOSONAR
+            System.err.println("Errore durante il salvataggio: " + e.getMessage()); //NOSONAR
         }
     }
 
     private void gestisciRegistrazioneHost(BeanUtenti bean) {
-        System.out.println("Benvenuto Host! Configurazione struttura..."); //NOSONAR
+        System.out.println("Configurazione struttura per Host..."); //NOSONAR
         new CreazioneStruttureCLI(bean).start();
     }
 
