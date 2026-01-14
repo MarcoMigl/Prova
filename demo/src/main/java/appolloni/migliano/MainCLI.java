@@ -4,7 +4,7 @@ import appolloni.migliano.cli.HomeCLI;
 
 public class MainCLI {
     public static void main(String[] args) {
-        System.out.println("Avvio applicazione in modalità CLI...");
+        System.out.println("Avvio applicazione in modalità CLI..."); //NOSONAR
 
         try {
             // 1. Inizializza la connessione al DB (fondamentale!)
@@ -16,12 +16,13 @@ public class MainCLI {
             home.start();
 
         } catch (Exception e) {
-            System.err.println("Errore fatale durante l'avvio: " + e.getMessage());
+            System.err.println("Errore fatale durante l'avvio: " + e.getMessage()); //NOSONAR
             e.printStackTrace();
         } finally {
             // 3. Chiudi la connessione alla chiusura dell'app
             DBConnection.closeConnection();
-            System.out.println("Connessione DB chiusa. Applicazione terminata.");
+            System.out.println("Connessione DB chiusa. Applicazione terminata."); //NOSONAR
         }
     }
+
 }
