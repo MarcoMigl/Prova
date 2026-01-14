@@ -31,10 +31,10 @@ public class CreazioneGruppoCLI {
 
         try {
             // 1. Dati base
-            System.out.print("Inserisci il nome del gruppo: ");
+            System.out.print("Inserisci il nome del gruppo: "); //NOSONAR
             String nome = scanner.nextLine();
 
-            System.out.print("Inserisci la materia di studio: ");
+            System.out.print("Inserisci la materia di studio: "); //NOSONAR
             String materia = scanner.nextLine();
 
             // 2. Localizzazione e recupero strutture
@@ -95,3 +95,4 @@ public class CreazioneGruppoCLI {
     }
 
 }
+
