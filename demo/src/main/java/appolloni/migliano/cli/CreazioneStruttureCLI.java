@@ -26,10 +26,10 @@ public class CreazioneStruttureCLI {
     }
 
     public void start() {
-        System.out.println("\n========================================");
-        System.out.println("   REGISTRAZIONE DELLA TUA STRUTTURA    ");
-        System.out.println("========================================");
-        System.out.println("Benvenuto " + utenteCorrente.getName() + ", inserisci i dati del locale.");
+        System.out.println("\n========================================"); //NOSONAR
+        System.out.println("   REGISTRAZIONE DELLA TUA STRUTTURA    "); //NOSONAR
+        System.out.println("========================================"); //NOSONAR
+        System.out.println("Benvenuto " + utenteCorrente.getName() + ", inserisci i dati del locale."); //NOSONAR
 
         try {
             // 1. Acquisizione dati tramite input
@@ -50,7 +50,7 @@ public class CreazioneStruttureCLI {
 
             // 3. Creazione dell'utente 
             controllerUtente.creazioneUtente(utenteCorrente);
-            System.out.println("Registrazione Utente effettuata...");
+            System.out.println("Registrazione Utente effettuata..."); //NOSONAR
 
             // 4. Preparazione BeanStruttura
             
@@ -63,28 +63,28 @@ public class CreazioneStruttureCLI {
             // 5. Chiamata al Controller per il salvataggio
             controllerStrutture.creaStruttura(utenteCorrente, beanStruttura);
 
-            System.out.println("\n[OK] Struttura '" + utenteCorrente.getNomeAttivita() + "' registrata con successo!");
+            System.out.println("\n[OK] Struttura '" + utenteCorrente.getNomeAttivita() + "' registrata con successo!"); //NOSONAR
             
             // 6. Navigazione finale
-            System.out.println("Premi invio per tornare al Menu...");
+            System.out.println("Premi invio per tornare al Menu..."); //NOSONAR
             scanner.nextLine();
            
              new HostMenuCLI(utenteCorrente).start(); 
 
         } catch (CampiVuotiException e) {
-            System.err.println("\n[ERRORE] " + e.getMessage());
+            System.err.println("\n[ERRORE] " + e.getMessage()); //NOSONAR
             riprova();
         } catch (SQLException e) {
-            System.out.println("Errore Database");
+            System.out.println("Errore Database"); //NOSONAR
         } catch (IOException e) {
-            System.out.println("Errore I/O");
+            System.out.println("Errore I/O"); //NOSONAR
         } catch (Exception e) {
-            System.err.println("\n[ERRORE IMPREVISTO] " + e.getMessage());
+            System.err.println("\n[ERRORE IMPREVISTO] " + e.getMessage()); //NOSONAR
         }
     }
 
     private void riprova() {
-        System.out.print("Vuoi riprovare l'inserimento? (s/n): ");
+        System.out.print("Vuoi riprovare l'inserimento? (s/n): "); //NOSONAR
         if(scanner.nextLine().equalsIgnoreCase("s")) {
             start();
         }
@@ -93,18 +93,18 @@ public class CreazioneStruttureCLI {
     // Helper per simulare ComboBox
     private String selezionaDaLista(String titolo, String[] opzioni) {
         while (true) {
-            System.out.println("\n" + titolo);
+            System.out.println("\n" + titolo); //NOSONAR
             for (int i = 0; i < opzioni.length; i++) {
-                System.out.println((i + 1) + ") " + opzioni[i]);
+                System.out.println((i + 1) + ") " + opzioni[i]); //NOSONAR
             }
-            System.out.print("Scelta (numero): ");
+            System.out.print("Scelta (numero): "); //NOSONAR
             try {
                 int scelta = Integer.parseInt(scanner.nextLine());
                 if (scelta >= 1 && scelta <= opzioni.length) {
                     return opzioni[scelta - 1];
                 }
             } catch (NumberFormatException e) { /* Fall through */ }
-            System.out.println("Scelta non valida, riprova.");
+            System.out.println("Scelta non valida, riprova."); //NOSONAR
         }
     }
 
@@ -114,4 +114,5 @@ public class CreazioneStruttureCLI {
         String risp = scanner.nextLine().trim().toLowerCase();
         return risp.equals("s") || risp.equals("si");
     }
+
 }
