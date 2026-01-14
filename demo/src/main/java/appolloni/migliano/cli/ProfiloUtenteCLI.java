@@ -22,11 +22,11 @@ public class ProfiloUtenteCLI {
         boolean back = false;
 
         while (!back) {
-            System.out.println("\n--- GESTIONE PROFILO ---");
-            System.out.println("1. Visualizza le mie informazioni");
-            System.out.println("2. Cambia Password");
-            System.out.println("3. Torna al menu principale");
-            System.out.print("Scelta: ");
+            System.out.println("\n--- GESTIONE PROFILO ---"); //NOSONAR
+            System.out.println("1. Visualizza le mie informazioni"); //NOSONAR
+            System.out.println("2. Cambia Password"); //NOSONAR
+            System.out.println("3. Torna al menu principale"); //NOSONAR
+            System.out.print("Scelta: "); //NOSONAR
 
             String scelta = scanner.nextLine();
 
@@ -34,7 +34,7 @@ public class ProfiloUtenteCLI {
                 case "1" -> mostraInfoUI();
                 case "2" -> cambiaPasswordUI();
                 case "3" -> back = true;
-                default -> System.out.println("Scelta non valida.");
+                default -> System.out.println("Scelta non valida."); //NOSONAR
             }
         }
     }
@@ -44,33 +44,34 @@ public class ProfiloUtenteCLI {
             // Usiamo l'email dell'utente già loggato
             BeanUtenti risultato = controller.recuperaInformazioniUtenti(utenteLoggato);
             
-            System.out.println("\n--- DETTAGLI PROFILO ---");
-            System.out.println("Nome:    " + risultato.getName());
-            System.out.println("Cognome: " + risultato.getCognome());
-            System.out.println("Email:   " + risultato.getEmail());
-            System.out.println("Città:   " + risultato.getCitta());
+            System.out.println("\n--- DETTAGLI PROFILO ---"); //NOSONAR
+            System.out.println("Nome:    " + risultato.getName()); //NOSONAR
+            System.out.println("Cognome: " + risultato.getCognome()); //NOSONAR
+            System.out.println("Email:   " + risultato.getEmail()); //NOSONAR
+            System.out.println("Città:   " + risultato.getCitta()); //NOSONAR
         } catch (Exception e) {
-            System.out.println("Errore nel recupero dati");
+            System.out.println("Errore nel recupero dati"); //NOSONAR
         }
     }
 
     private void cambiaPasswordUI() {
         try {
-            System.out.print("Inserisci la vecchia password: ");
+            System.out.print("Inserisci la vecchia password: "); //NOSONAR
             String vecchia = scanner.nextLine();
             
-            System.out.print("Inserisci la nuova password: ");
+            System.out.print("Inserisci la nuova password: "); //NOSONAR
             String nuova = scanner.nextLine();
 
             boolean successo = controller.modificaPassword(vecchia, nuova, utenteLoggato);
             
             if (successo) {
-                System.out.println("Password aggiornata con successo!");
+                System.out.println("Password aggiornata con successo!"); //NOSONAR
             } else {
-                System.err.println("Errore: La password attuale inserita non è corretta.");
+                System.err.println("Errore: La password attuale inserita non è corretta."); //NOSONAR
             }
         } catch (Exception e) {
-            System.err.println("Errore durante l'operazione: " + e.getMessage());
+            System.err.println("Errore durante l'operazione: " + e.getMessage()); //NOSONAR
         }
     }
+
 }
