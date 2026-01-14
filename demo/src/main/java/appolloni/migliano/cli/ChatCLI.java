@@ -27,13 +27,13 @@ public class ChatCLI {
         boolean exit = false;
         while (!exit) {
             try { 
-                System.out.println("\n--- CHAT: " + gruppoCorrente.getNome() + " ---");
+                System.out.println("\n--- CHAT: " + gruppoCorrente.getNome() + " ---"); //NOSONAR
                 
                 
                 mostraMessaggi(); 
                 
-                System.out.println("\n[1] Invia Messaggio | [2] Refresh | [3] Abbandona Gruppo | [4] Esci");
-                System.out.print("Scelta: ");
+                System.out.println("\n[1] Invia Messaggio | [2] Refresh | [3] Abbandona Gruppo | [4] Esci"); //NOSONAR
+                System.out.print("Scelta: "); //NOSONAR
                 String scelta = scanner.nextLine();
 
                 switch (scelta) {
@@ -44,13 +44,10 @@ public class ChatCLI {
                         exit = true;
                     }
                     case "4" -> exit = true;
-                    default -> System.out.println("Scelta non valida.");
+                    default -> System.out.println("Scelta non valida."); //NOSONAR
                 }
             } catch (SQLException e) {
-                 System.out.println("Errore Database");
-
-                // Se c'è un errore grave al database, per uscire
-                // exit = true; 
+                 System.out.println("Errore Database"); //NOSONAR
             }
         }
     }
@@ -59,26 +56,26 @@ public class ChatCLI {
         try {
             List<BeanMessaggi> messaggi = controller.recuperaMessaggi(gruppoCorrente);
         if (messaggi.isEmpty()) {
-            System.out.println("(Nessun messaggio presente)");
+            System.out.println("(Nessun messaggio presente)"); //NOSONAR
         } else {
             for (BeanMessaggi m : messaggi) {
-                System.out.println("[" + m.getMittente() + "]: " + m.getMess());
+                System.out.println("[" + m.getMittente() + "]: " + m.getMess()); //NOSONAR
             }
         }
             
         } catch (Exception e) {
-            System.out.println("Errore caricamento");
+            System.out.println("Errore caricamento"); //NOSONAR
 
         } 
     }
 
     private void inviaMessaggioUI() throws SQLException{
-        System.out.print("Scrivi messaggio: ");
+        System.out.print("Scrivi messaggio: "); //NOSONAR
         String testo = scanner.nextLine();
        try {
            controller.inviaMessaggio(utenteLoggato, gruppoCorrente, testo);
        } catch (Exception e) {
-         System.out.println("Errore");
+         System.out.println("Errore"); //NOSONAR
 
        } 
     }
@@ -89,10 +86,11 @@ public class ChatCLI {
            try {
                controller.abbandonaGruppo(utenteLoggato, gruppoCorrente);
            } catch (Exception e) {
-             System.out.println("Errore");
+             System.out.println("Errore"); //NOSONAR
 
            } 
-            System.out.println("Gruppo abbandonato.");
+            System.out.println("Gruppo abbandonato."); //NOSONAR
         }
     }
 }
+
