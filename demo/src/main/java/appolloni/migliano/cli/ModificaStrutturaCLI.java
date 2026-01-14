@@ -2,7 +2,7 @@ package appolloni.migliano.cli;
 
 import java.util.Scanner;
 
-import appolloni.migliano.HelperErrori;
+
 import appolloni.migliano.bean.BeanStruttura;
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerGestioneStrutture;
@@ -89,4 +89,5 @@ public class ModificaStrutturaCLI {
         }
         return valoreAttuale; // Mantiene il valore attuale (es. se preme solo Invio)
     }
+
 }
