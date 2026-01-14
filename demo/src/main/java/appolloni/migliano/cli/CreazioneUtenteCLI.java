@@ -19,22 +19,22 @@ public class CreazioneUtenteCLI {
     }
 
     public void start() {
-        System.out.println("\n--- REGISTRAZIONE NUOVO UTENTE ---");
+        System.out.println("\n--- REGISTRAZIONE NUOVO UTENTE ---"); //NOSONAR
 
         try {
             // 1. Scelta del Tipo di Utente
             String tipo = selezionaTipoUtente();
 
             // 2. Acquisizione Dati Comuni
-            System.out.print("Nome: ");
+            System.out.print("Nome: "); //NOSONAR
             String nome = scanner.nextLine().trim();
-            System.out.print("Cognome: ");
+            System.out.print("Cognome: "); //NOSONAR
             String cognome = scanner.nextLine().trim();
-            System.out.print("Email: ");
+            System.out.print("Email: "); //NOSONAR
             String email = scanner.nextLine().trim().toLowerCase();
-            System.out.print("Città: ");
+            System.out.print("Città: "); //NOSONAR
             String citta = scanner.nextLine().trim();
-            System.out.print("Password: ");
+            System.out.print("Password: "); //NOSONAR
             String password = scanner.nextLine().trim();
 
             // Validazione base dei campi obbligatori
@@ -50,8 +50,8 @@ public class CreazioneUtenteCLI {
 
             // Gestione dati extra se l'utente è un Host
             if ("Host".equalsIgnoreCase(tipo)) {
-                System.out.println("Benvenuto Host! Reindirizzamento alla registrazione dei dettagli della struttura...");
-                System.out.println("\n--- DATI ATTIVITÀ (Obbligatori per Host) ---");
+                System.out.println("Benvenuto Host! Reindirizzamento alla registrazione dei dettagli della struttura..."); //NOSONAR
+                System.out.println("\n--- DATI ATTIVITÀ (Obbligatori per Host) ---"); //NOSONAR
                 
                 // Avviamo la CLI per la creazione della struttura fisica
                 new CreazioneStruttureCLI(beanUtenti).start();
@@ -60,9 +60,9 @@ public class CreazioneUtenteCLI {
                 // 4. Chiamata al Controller per il salvataggio nel DBMS
                 try {
                     controller.creazioneUtente(beanUtenti);
-                    System.out.println("\n Registrazione effettuata con successo!");
+                    System.out.println("\n Registrazione effettuata con successo!"); //NOSONAR
                 } catch (Exception e) {
-                    System.out.println("Errore caricamento");
+                    System.out.println("Errore caricamento"); //NOSONAR
                  }
            
         }
@@ -70,30 +70,29 @@ public class CreazioneUtenteCLI {
             // 5. NAVIGAZIONE POST-REGISTRAZIONE
             // Qui gestiamo il reindirizzamento in base al ruolo
             if ("Host".equalsIgnoreCase(tipo)) {
-                System.out.println("Benvenuto Host! Reindirizzamento al menu...");
+                System.out.println("Benvenuto Host! Reindirizzamento al menu..."); //NOSONAR
                 
                 new HostMenuCLI(beanUtenti).start();
                 
             } else {
-                System.out.println("Benvenuto Studente! Reindirizzamento al menu principale...");
+                System.out.println("Benvenuto Studente! Reindirizzamento al menu principale..."); //NOSONAR
                 
                 // Avviamo la Home/Menu principale per lo studente
                 new MenuPrincipaleCLI(beanUtenti).start();
             }
 
         } catch (CampiVuotiException e) {
-            System.err.println("\n Errore nei dati inseriti: " + e.getMessage());
-            System.out.println("Vuoi riprovare la registrazione? (s/n)");
+            System.err.println("\n Errore nei dati inseriti: " + e.getMessage()); //NOSONAR
+            System.out.println("Vuoi riprovare la registrazione? (s/n)"); //NOSONAR
             if(scanner.nextLine().equalsIgnoreCase("s")) start();
         }catch (EmailNonValidaException e) {
-            System.err.println("\n Errore email non valida: " + e.getMessage());
-            System.out.println("Vuoi riprovare la registrazione? (s/n)");
+            System.err.println("\n Errore email non valida: " + e.getMessage()); //NOSONAR
+            System.out.println("Vuoi riprovare la registrazione? (s/n)"); //NOSONAR
             if(scanner.nextLine().equalsIgnoreCase("s")) start();
         }
          catch (Exception e) {
-            System.err.println("\n Errore tecnico durante la registrazione: " + e.getMessage());
-            // In caso di errore nel DB, mostriamo lo stack trace per debug (opzionale)
-            // e.printStackTrace(); 
+            System.err.println("\n Errore tecnico durante la registrazione: " + e.getMessage()); //NOSONAR
+           
         }
     }
 
@@ -102,17 +101,18 @@ public class CreazioneUtenteCLI {
      */
     private String selezionaTipoUtente() {
         while (true) {
-            System.out.println("Seleziona il tuo ruolo:");
-            System.out.println("1) Studente");
-            System.out.println("2) Host");
-            System.out.print("Scelta: ");
+            System.out.println("Seleziona il tuo ruolo:"); //NOSONAR
+            System.out.println("1) Studente"); //NOSONAR
+            System.out.println("2) Host"); //NOSONAR
+            System.out.print("Scelta: "); //NOSONAR
             String scelta = scanner.nextLine();
             if (scelta.equals("1")) return "Studente";
             if (scelta.equals("2")) return "Host";
-            System.out.println("Scelta non valida. Inserisci 1 o 2.");
+            System.out.println("Scelta non valida. Inserisci 1 o 2."); //NOSONAR
         }
     }
 
     
 
 }
+
