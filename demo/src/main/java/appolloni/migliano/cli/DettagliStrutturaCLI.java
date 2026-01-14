@@ -27,33 +27,33 @@ public class DettagliStrutturaCLI {
         boolean back = false;
 
         while (!back) {
-            System.out.println("\n========================================");
-            System.out.println("          DETTAGLI STRUTTURA            ");
-            System.out.println("========================================");
+            System.out.println("\n========================================"); //NOSONAR
+            System.out.println("          DETTAGLI STRUTTURA            "); //NOSONAR
+            System.out.println("========================================"); //NOSONAR
 
             // 1. Visualizzazione Informazioni
             stampaInfoStruttura();
 
             // 2. Caricamento e Visualizzazione Recensioni
-            System.out.println("\n--- RECENSIONI UTENTI ---");
+            System.out.println("\n--- RECENSIONI UTENTI ---"); //NOSONAR
             try {
                 List<BeanRecensioni> lista = controllerRecensione.cercaRecensioniPerStruttura(beanStruttura);
                  if (lista.isEmpty()) {
-                System.out.println("[ Nessuna recensione ancora presente ]");
+                System.out.println("[ Nessuna recensione ancora presente ]"); //NOSONAR
             } else {
                 for (BeanRecensioni b : lista) {
-                    System.out.printf("- %s: %d/5 ⭐ | %s\n", b.getAutore(), b.getVoto(), b.getTesto());
+                    System.out.printf("- %s: %d/5 ⭐ | %s\n", b.getAutore(), b.getVoto(), b.getTesto()); //NOSONAR
                 }
             }
             } catch (Exception e) {
-               System.out.println("Errore caricamento recensioni");
+               System.out.println("Errore caricamento recensioni"); //NOSONAR
             }
             
             // 3. Menu Azioni
-            System.out.println("\n----------------------------------------");
-            System.out.println("S) Scrivi una recensione");
-            System.out.println("I) Torna indietro");
-            System.out.print("Scelta: ");
+            System.out.println("\n----------------------------------------"); //NOSONAR
+            System.out.println("S) Scrivi una recensione"); //NOSONAR
+            System.out.println("I) Torna indietro"); //NOSONAR
+            System.out.print("Scelta: "); //NOSONAR
 
             String scelta = scanner.nextLine().toUpperCase();
 
@@ -61,26 +61,27 @@ public class DettagliStrutturaCLI {
                 case "S" -> new ScriviRecensioneCLI(beanUtente, beanStruttura).start();
                     // Al ritorno, il ciclo while ricaricherà le recensioni aggiornate
                 case "I" -> back = true;
-                default -> System.out.println("Scelta non valida.");
+                default -> System.out.println("Scelta non valida."); //NOSONAR
             }
         }
     }
 
     private void stampaInfoStruttura() {
-        System.out.println("NOME:            " + beanStruttura.getName());
-        System.out.println("CATEGORIA:       " + (beanStruttura.getTipoAttivita() != null ? beanStruttura.getTipoAttivita().toUpperCase() : "GENERICA"));
-        System.out.println("CITTA':          " + beanStruttura.getCitta());
-        System.out.println("INDIRIZZO:       " + beanStruttura.getIndirizzo());
-        System.out.println("ORARIO:          " + (beanStruttura.getOrario() != null ? beanStruttura.getOrario() : "Non disponibile"));
-        System.out.println("GESTORE:         " + (beanStruttura.getGestore() != null ? beanStruttura.getGestore() : "Pubblica"));
+        System.out.println("NOME:            " + beanStruttura.getName()); //NOSONAR
+        System.out.println("CATEGORIA:       " + (beanStruttura.getTipoAttivita() != null ? beanStruttura.getTipoAttivita().toUpperCase() : "GENERICA")); //NOSONAR
+        System.out.println("CITTA':          " + beanStruttura.getCitta()); //NOSONAR
+        System.out.println("INDIRIZZO:       " + beanStruttura.getIndirizzo()); //NOSONAR
+        System.out.println("ORARIO:          " + (beanStruttura.getOrario() != null ? beanStruttura.getOrario() : "Non disponibile")); //NOSONAR
+        System.out.println("GESTORE:         " + (beanStruttura.getGestore() != null ? beanStruttura.getGestore() : "Pubblica")); //NOSONAR
         
     
-        System.out.print("WIFI:            " + (beanStruttura.hasWifi() ? "[SI]" : "[NO]"));
-        System.out.println(" | RISTORAZIONE: " + (beanStruttura.hasRistorazione() ? "[SI]" : "[NO]"));
+        System.out.print("WIFI:            " + (beanStruttura.hasWifi() ? "[SI]" : "[NO]")); //NOSONAR
+        System.out.println(" | RISTORAZIONE: " + (beanStruttura.hasRistorazione() ? "[SI]" : "[NO]")); //NOSONAR
 
         // Gestione Foto (Testuale)
         String foto = beanStruttura.getFoto();
-        System.out.println("FOTO DISPONIBILE: " + (foto != null && !foto.isEmpty() ? foto : "Nessuna foto"));
+        System.out.println("FOTO DISPONIBILE: " + (foto != null && !foto.isEmpty() ? foto : "Nessuna foto")); //NOSONAR
     }
 }
+
 
