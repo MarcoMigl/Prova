@@ -23,29 +23,29 @@ public class SegnalaStrutturaCLI {
     }
 
     public void start() {
-        System.out.println("\n========================================");
-        System.out.println("       SEGNALA UNA NUOVA STRUTTURA      ");
-        System.out.println("========================================");
-        System.out.println("Grazie " + studenteLoggato.getName() + " per il tuo contributo!");
+        System.out.println("\n========================================"); //NOSONAR
+        System.out.println("       SEGNALA UNA NUOVA STRUTTURA      "); //NOSONAR
+        System.out.println("========================================"); //NOSONAR
+        System.out.println("Grazie " + studenteLoggato.getName() + " per il tuo contributo!"); //NOSONAR
 
         try {
             // 1. Dati Obbligatori
-            System.out.print("Nome Struttura*: ");
+            System.out.print("Nome Struttura*: "); //NOSONAR
             String nome = scanner.nextLine().trim();
 
-            System.out.print("Città*: ");
+            System.out.print("Città*: "); //NOSONAR
             String citta = scanner.nextLine().trim();
 
             String tipoStruttura = selezionaOpzione("Tipo Struttura*:", new String[]{"Privata", "Pubblica"});
 
             // 2. Altri dettagli
-            System.out.print("Indirizzo: ");
+            System.out.print("Indirizzo: "); //NOSONAR
             String indirizzo = scanner.nextLine().trim();
 
-            System.out.print("Orario (es. 09:00 - 18:00): ");
+            System.out.print("Orario (es. 09:00 - 18:00): "); //NOSONAR
             String orario = scanner.nextLine().trim();
 
-            System.out.print("Nome del Gestore (lascia vuoto se non lo sai): ");
+            System.out.print("Nome del Gestore (lascia vuoto se non lo sai): "); //NOSONAR
             String gestore = scanner.nextLine().trim();
             if (gestore.isEmpty()) gestore = "Sconosciuto";
 
@@ -70,43 +70,44 @@ public class SegnalaStrutturaCLI {
             // Il controller gestirà la differenza tramite bean.getTipo()
             controller.creaStruttura(studenteLoggato, struttura);
 
-            System.out.println("\n✅ Grazie! La struttura è stata segnalata con successo.");
-            System.out.println("Premi Invio per tornare al Menu Principale...");
+            System.out.println("\n✅ Grazie! La struttura è stata segnalata con successo."); //NOSONAR
+            System.out.println("Premi Invio per tornare al Menu Principale..."); //NOSONAR
             scanner.nextLine();
 
         } catch (CampiVuotiException e) {
-            System.err.println("\n⚠️ Errore: " + e.getMessage());
+            System.err.println("\n⚠️ Errore: " + e.getMessage()); //NOSONAR
         } catch (SQLException e) {
-            System.err.println("\n❌ Errore Database: " + e.getMessage());
+            System.err.println("\n❌ Errore Database: " + e.getMessage()); //NOSONAR
         } catch (IOException e) {
-            System.err.println("\n❌ Errore di salvataggio: " + e.getMessage());
+            System.err.println("\n❌ Errore di salvataggio: " + e.getMessage()); //NOSONAR
         } catch (EntitaNonTrovata | IllegalArgumentException e) {
-            System.err.println("\n❌ Errore validazione: " + e.getMessage());
+            System.err.println("\n❌ Errore validazione: " + e.getMessage()); //NOSONAR
         } catch (Exception e) {
-            System.err.println("\n❌ Errore imprevisto: " + e.getMessage());
+            System.err.println("\n❌ Errore imprevisto: " + e.getMessage()); //NOSONAR
         }
     }
 
     private String selezionaOpzione(String titolo, String[] opzioni) {
         while (true) {
-            System.out.println("\n" + titolo);
+            System.out.println("\n" + titolo); //NOSONAR
             for (int i = 0; i < opzioni.length; i++) {
-                System.out.println((i + 1) + ") " + opzioni[i]);
+                System.out.println((i + 1) + ") " + opzioni[i]); //NOSONAR
             }
-            System.out.print("Scelta (numero): ");
+            System.out.print("Scelta (numero): "); //NOSONAR
             try {
                 int scelta = Integer.parseInt(scanner.nextLine());
                 if (scelta >= 1 && scelta <= opzioni.length) {
                     return opzioni[scelta - 1];
                 }
             } catch (Exception e) { /* Continua il ciclo */ }
-            System.out.println("Scelta non valida, riprova.");
+            System.out.println("Scelta non valida, riprova."); //NOSONAR
         }
     }
 
     private boolean chiediConferma(String domanda) {
-        System.out.print(domanda + " (s/n): ");
+        System.out.print(domanda + " (s/n): "); //NOSONAR
         String risp = scanner.nextLine().trim().toLowerCase();
         return risp.equals("s") || risp.equals("si");
     }
+
 }
