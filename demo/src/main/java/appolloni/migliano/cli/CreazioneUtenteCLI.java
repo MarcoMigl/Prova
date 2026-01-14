@@ -1,7 +1,8 @@
 package appolloni.migliano.cli;
 
 import java.util.Scanner;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerGestioneUtente;
@@ -10,6 +11,7 @@ import appolloni.migliano.exception.EmailNonValidaException;
 
 public class CreazioneUtenteCLI {
 
+    private static final Logger logger = LoggerFactory.getLogger(CreazioneUtenteCLI.class);
     private final ControllerGestioneUtente controller;
     private final Scanner scanner;
 
@@ -22,10 +24,8 @@ public class CreazioneUtenteCLI {
         System.out.println("\n--- REGISTRAZIONE NUOVO UTENTE ---"); //NOSONAR
 
         try {
-            // 1. Scelta del Tipo di Utente
             String tipo = selezionaTipoUtente();
 
-            // 2. Acquisizione Dati Comuni
             System.out.print("Nome: "); //NOSONAR
             String nome = scanner.nextLine().trim();
             System.out.print("Cognome: "); //NOSONAR
@@ -37,68 +37,67 @@ public class CreazioneUtenteCLI {
             System.out.print("Password: "); //NOSONAR
             String password = scanner.nextLine().trim();
 
-            // Validazione base dei campi obbligatori
-            if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || citta.isEmpty() || password.isEmpty()) {
-                throw new CampiVuotiException("Controlli di aver inserito una mail valida o  dati correttamente.");
-            }
-            if(!email.contains("@")){
-                throw new EmailNonValidaException("Inserire una email valida.");
-            }
+            validazioneInput(nome, cognome, email, citta, password);
 
-            // 3. Creazione del BeanUtenti
             BeanUtenti beanUtenti = new BeanUtenti(tipo, nome, cognome, email, password, citta);
 
-            // Gestione dati extra se l'utente è un Host
             if ("Host".equalsIgnoreCase(tipo)) {
-                System.out.println("Benvenuto Host! Reindirizzamento alla registrazione dei dettagli della struttura..."); //NOSONAR
-                System.out.println("\n--- DATI ATTIVITÀ (Obbligatori per Host) ---"); //NOSONAR
-                
-                // Avviamo la CLI per la creazione della struttura fisica
-                new CreazioneStruttureCLI(beanUtenti).start();
-                
-            }else{
-                // 4. Chiamata al Controller per il salvataggio nel DBMS
-                try {
-                    controller.creazioneUtente(beanUtenti);
-                    System.out.println("\n Registrazione effettuata con successo!"); //NOSONAR
-                } catch (Exception e) {
-                    System.out.println("Errore caricamento"); //NOSONAR
-                 }
-           
-        }
-
-            // 5. NAVIGAZIONE POST-REGISTRAZIONE
-            // Qui gestiamo il reindirizzamento in base al ruolo
-            if ("Host".equalsIgnoreCase(tipo)) {
-                System.out.println("Benvenuto Host! Reindirizzamento al menu..."); //NOSONAR
-                
-                new HostMenuCLI(beanUtenti).start();
-                
+                gestisciRegistrazioneHost(beanUtenti);
             } else {
-                System.out.println("Benvenuto Studente! Reindirizzamento al menu principale..."); //NOSONAR
-                
-                // Avviamo la Home/Menu principale per lo studente
-                new MenuPrincipaleCLI(beanUtenti).start();
+                salvaUtenteNelSistema(beanUtenti);
             }
 
-        } catch (CampiVuotiException e) {
-            System.err.println("\n Errore nei dati inseriti: " + e.getMessage()); //NOSONAR
-            System.out.println("Vuoi riprovare la registrazione? (s/n)"); //NOSONAR
-            if(scanner.nextLine().equalsIgnoreCase("s")) start();
-        }catch (EmailNonValidaException e) {
-            System.err.println("\n Errore email non valida: " + e.getMessage()); //NOSONAR
-            System.out.println("Vuoi riprovare la registrazione? (s/n)"); //NOSONAR
-            if(scanner.nextLine().equalsIgnoreCase("s")) start();
-        }
-         catch (Exception e) {
-            System.err.println("\n Errore tecnico durante la registrazione: " + e.getMessage()); //NOSONAR
-           
+            eseguiNavigazionePostRegistrazione(tipo, beanUtenti);
+
+        } catch (CampiVuotiException | EmailNonValidaException e) {
+            System.err.println("\n Errore nei dati: " + e.getMessage()); //NOSONAR
+            chiediRiprova();
+        } catch (Exception e) {
+            logger.error("Errore tecnico durante la registrazione: ", e);
+            System.err.println("\n Si è verificato un errore tecnico imprevisto."); //NOSONAR
         }
     }
 
-    /**
-     * Menu di selezione per il tipo di utente
-     */
+    private void validazioneInput(String n, String co, String e, String ci, String p) throws CampiVuotiException, EmailNonValidaException {
+        if (n.isEmpty() || co.isEmpty() || e.isEmpty() || ci.isEmpty() || p.isEmpty()) {
+            throw new CampiVuotiException("Tutti i campi sono obbligatori.");
+        }
+        if (!e.contains("@")) {
+            throw new EmailNonValidaException("Inserire una email valida.");
+        }
+    }
+
+    private void salvaUtenteNelSistema(BeanUtenti bean) {
+        try {
+            controller.creazioneUtente(bean);
+            System.out.println("\n Registrazione effettuata con successo!"); //NOSONAR
+        } catch (Exception e) {
+            logger.error("Errore salvataggio DBMS: ", e);
+            System.err.println("Errore durante il salvataggio dei dati."); //NOSONAR
+        }
+    }
+
+    private void gestisciRegistrazioneHost(BeanUtenti bean) {
+        System.out.println("Benvenuto Host! Configurazione struttura..."); //NOSONAR
+        new CreazioneStruttureCLI(bean).start();
+    }
+
+    private void eseguiNavigazionePostRegistrazione(String tipo, BeanUtenti bean) {
+        if ("Host".equalsIgnoreCase(tipo)) {
+            new HostMenuCLI(bean).start();
+        } else {
+            System.out.println("Benvenuto Studente! Caricamento menu..."); //NOSONAR
+            new MenuPrincipaleCLI(bean).start();
+        }
+    }
+
+    private void chiediRiprova() {
+        System.out.println("Vuoi riprovare la registrazione? (s/n)"); //NOSONAR
+        if (scanner.nextLine().equalsIgnoreCase("s")) {
+            start();
+        }
+    }
+
     private String selezionaTipoUtente() {
         while (true) {
             System.out.println("Seleziona il tuo ruolo:"); //NOSONAR
@@ -106,13 +105,9 @@ public class CreazioneUtenteCLI {
             System.out.println("2) Host"); //NOSONAR
             System.out.print("Scelta: "); //NOSONAR
             String scelta = scanner.nextLine();
-            if (scelta.equals("1")) return "Studente";
-            if (scelta.equals("2")) return "Host";
-            System.out.println("Scelta non valida. Inserisci 1 o 2."); //NOSONAR
+            if ("1".equals(scelta)) return "Studente";
+            if ("2".equals(scelta)) return "Host";
+            System.out.println("Scelta non valida."); //NOSONAR
         }
     }
-
-    
-
 }
-
