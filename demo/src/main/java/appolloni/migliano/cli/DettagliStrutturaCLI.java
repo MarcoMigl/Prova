@@ -58,10 +58,8 @@ public class DettagliStrutturaCLI {
             String scelta = scanner.nextLine().toUpperCase();
 
             switch (scelta) {
-                case "S" -> {
-                    new ScriviRecensioneCLI(beanUtente, beanStruttura).start();
+                case "S" -> new ScriviRecensioneCLI(beanUtente, beanStruttura).start();
                     // Al ritorno, il ciclo while ricaricherà le recensioni aggiornate
-                }
                 case "I" -> back = true;
                 default -> System.out.println("Scelta non valida.");
             }
@@ -85,3 +83,4 @@ public class DettagliStrutturaCLI {
         System.out.println("FOTO DISPONIBILE: " + (foto != null && !foto.isEmpty() ? foto : "Nessuna foto"));
     }
 }
+
