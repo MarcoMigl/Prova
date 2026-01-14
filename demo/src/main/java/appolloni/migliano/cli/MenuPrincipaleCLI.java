@@ -67,12 +67,8 @@ public class MenuPrincipaleCLI {
                 switch (scelta) {
                     case "R" -> new RicercaCLI(bean).start(); // Passa bean se necessario
                     case "P" -> new ProfiloUtenteCLI(bean).start();
-                    case "G" -> {
-                       new CreazioneGruppoCLI(bean).start();
-                    }
-                    case "S" -> {
-                       new SegnalaStrutturaCLI(bean).start();
-                    }
+                    case "G" ->  new CreazioneGruppoCLI(bean).start();
+                    case "S" -> new SegnalaStrutturaCLI(bean).start();
                     case "L" -> {
                         System.out.println("Logout effettuato. Arrivederci!");
                         exit = true; 
@@ -93,4 +89,5 @@ public class MenuPrincipaleCLI {
             System.out.println("Indice gruppo non valido.");
         }
     }
+
 }
