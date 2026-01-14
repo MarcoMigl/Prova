@@ -22,7 +22,7 @@ public class LoginCLI {
         System.out.print("Email: "); //NOSONAR
         String email = scanner.nextLine().trim();
         
-        System.out.print("Password: "); //NOSONAR
+        System.out.print("Password (I caratteri inseriti non saranno visibili): "); //NOSONAR
         String password = "";
 
         // Lettura sicura da terminale
@@ -30,7 +30,7 @@ public class LoginCLI {
             char[] passwordChars = System.console().readPassword();
             password = new String(passwordChars);
             // Pratica di sicurezza: cancella l'array dalla memoria dopo aver creato la stringa
-            Arrays.fill(passwordChars, '*'); 
+            Arrays.fill(passwordChars, ' '); 
         } else {
             // Backup per ambienti senza console (es. alcuni IDE)
             password = scanner.nextLine().trim();
@@ -74,3 +74,4 @@ public class LoginCLI {
         }
     }
 }
+
