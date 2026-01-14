@@ -35,13 +35,13 @@ public class CreazioneStruttureCLI {
             // 1. Acquisizione dati tramite input
             String tipo = selezionaDaLista("Tipo Struttura:", new String[]{"Privata", "Pubblica"});
             
-            System.out.print("Città: ");
+            System.out.print("Città: "); //NOSONAR
             String citta = scanner.nextLine().trim();
             
-            System.out.print("Indirizzo: ");
+            System.out.print("Indirizzo: "); //NOSONAR
             String indirizzo = scanner.nextLine().trim();
             
-            System.out.print("Orario apertura (es. 08:00-20:00): ");
+            System.out.print("Orario apertura (es. 08:00-20:00): "); //NOSONAR
             String orario = scanner.nextLine().trim();
 
             // 2. Gestione CheckBox (Si/No)
@@ -110,9 +110,10 @@ public class CreazioneStruttureCLI {
 
     // Helper per simulare CheckBox
     private boolean chiediConferma(String domanda) {
-        System.out.print(domanda + " (s/n): ");
+        System.out.print(domanda + " (s/n): "); //NOSONAR
         String risp = scanner.nextLine().trim().toLowerCase();
         return risp.equals("s") || risp.equals("si");
     }
 
 }
+
