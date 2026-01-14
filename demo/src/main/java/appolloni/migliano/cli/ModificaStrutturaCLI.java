@@ -13,18 +13,21 @@ public class ModificaStrutturaCLI {
     private final BeanStruttura strutturaCorrente;
     private final String vecchioNome;
     private final ControllerGestioneStrutture controllerApp;
+    private final BeanUtenti host;
 
     public ModificaStrutturaCLI(BeanUtenti host, BeanStruttura struttura) {
         this.scanner = new Scanner(System.in);
         this.strutturaCorrente = struttura;
         this.vecchioNome = struttura.getName(); 
         this.controllerApp = new ControllerGestioneStrutture();
+        this.host = host;
     }
 
     public void start() {
         System.out.println("\n========================================"); //NOSONAR
         System.out.println("       MODIFICA DELLA STRUTTURA        "); //NOSONAR
         System.out.println("========================================"); //NOSONAR
+        System.out.println("Ciao " + host.getName() + ", stai modificando la tua struttura."); //NOSONAR
         System.out.println("Lascia vuoto e premi Invio per mantenere il valore attuale."); //NOSONAR
 
         try {
@@ -91,4 +94,5 @@ public class ModificaStrutturaCLI {
     }
 
 }
+
 
