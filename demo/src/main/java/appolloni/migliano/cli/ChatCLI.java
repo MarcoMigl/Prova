@@ -38,7 +38,7 @@ public class ChatCLI {
 
                 switch (scelta) {
                     case "1" -> inviaMessaggioUI();
-                    case "2" -> System.out.println("Messaggi aggiornati...") //NOSONAR
+                    case "2" -> System.out.println("Messaggi aggiornati..."); //NOSONAR
                     case "3" -> {
                         abbandonaGruppoUI();
                         exit = true;
@@ -93,6 +93,7 @@ public class ChatCLI {
         }
     }
 }
+
 
 
 
