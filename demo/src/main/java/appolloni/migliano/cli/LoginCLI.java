@@ -17,17 +17,17 @@ public class LoginCLI {
     }
 
     public void start() {
-        System.out.println("\n--- LOGIN UTENTE ---");
+        System.out.println("\n--- LOGIN UTENTE ---"); //NOSONAR
         
-        System.out.print("Email: ");
+        System.out.print("Email: "); //NOSONAR
         String email = scanner.nextLine().trim();
         
-        System.out.print("Password: ");
+        System.out.print("Password: "); //NOSONAR
         String password = scanner.nextLine().trim();
 
         // Controllo campi vuoti
         if (email.isEmpty() || password.isEmpty()) {
-            System.err.println("Errore: informazioni mancanti!");
+            System.err.println("Errore: informazioni mancanti!"); //NOSONAR
             start();
             return;
         }
@@ -42,15 +42,15 @@ public class LoginCLI {
             BeanUtenti utenteLoggato = controller.verificaUtente(beanLogin);
             
             if (utenteLoggato != null) {
-                System.out.println("\nLogin effettuato! Benvenuto " + utenteLoggato.getName());
+                System.out.println("\nLogin effettuato! Benvenuto " + utenteLoggato.getName()); //NOSONAR
                 
                 // 3. Reindirizzamento differenziato in base al tipo
                 reindirizzaUtente(utenteLoggato);
             }
             
         } catch (Exception e) {
-            System.err.println("\n Errore di accesso: " + e.getMessage());
-            System.out.println("Riprova oppure scrivi 'esci' per terminare.");
+            System.err.println("\n Errore di accesso: " + e.getMessage()); //NOSONAR
+            System.out.println("Riprova oppure scrivi 'esci' per terminare."); //NOSONAR
             if (!scanner.nextLine().equalsIgnoreCase("esci")) {
                 start();
             }
@@ -60,14 +60,15 @@ public class LoginCLI {
     private void reindirizzaUtente(BeanUtenti utente) {
         
         if ("Studente".equalsIgnoreCase(utente.getTipo())) {
-            System.out.println("[Sistema] Caricamento Menu Studente...");
+            System.out.println("[Sistema] Caricamento Menu Studente..."); //NOSONAR
             MenuPrincipaleCLI menuStudente = new MenuPrincipaleCLI(utente);
             menuStudente.start();
         } else {
-            System.out.println("[Sistema] Caricamento Menu Host...");
+            System.out.println("[Sistema] Caricamento Menu Host..."); //NOSONAR
             HostMenuCLI menuHost = new HostMenuCLI(utente);
             menuHost.start();
             
         }
     }
+
 }
