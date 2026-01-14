@@ -39,7 +39,7 @@ public class ChatCLI {
 
                 switch (scelta) {
                     case "1" -> inviaMessaggioUI();
-                    case "2" -> {} 
+                    case "2" -> {//refresh pagina} 
                     case "3" -> {
                         abbandonaGruppoUI();
                         exit = true;
@@ -94,5 +94,6 @@ public class ChatCLI {
         }
     }
 }
+
 
 
