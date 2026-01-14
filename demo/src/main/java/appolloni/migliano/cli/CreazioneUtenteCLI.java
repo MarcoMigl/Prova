@@ -86,7 +86,7 @@ public class CreazioneUtenteCLI {
             System.out.println("Vuoi riprovare la registrazione? (s/n)");
             if(scanner.nextLine().equalsIgnoreCase("s")) start();
         }catch (EmailNonValidaException e) {
-            System.err.println("\n Errore nei dati inseriti: " + e.getMessage());
+            System.err.println("\n Errore email non valida: " + e.getMessage());
             System.out.println("Vuoi riprovare la registrazione? (s/n)");
             if(scanner.nextLine().equalsIgnoreCase("s")) start();
         }
@@ -114,4 +114,5 @@ public class CreazioneUtenteCLI {
     }
 
     
+
 }
