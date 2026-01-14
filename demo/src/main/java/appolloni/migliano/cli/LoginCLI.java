@@ -1,10 +1,10 @@
 package appolloni.migliano.cli;
 
 import java.util.Scanner;
+import java.util.Arrays; // Aggiunto per pulizia sicurezza
 
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerLogin;
-
 
 public class LoginCLI {
 
@@ -23,52 +23,54 @@ public class LoginCLI {
         String email = scanner.nextLine().trim();
         
         System.out.print("Password: "); //NOSONAR
-        String password = scanner.nextLine().trim();
+        String password = "";
 
-        // Controllo campi vuoti
+        // Lettura sicura da terminale
+        if (System.console() != null) {
+            char[] passwordChars = System.console().readPassword();
+            password = new String(passwordChars);
+            // Pratica di sicurezza: cancella l'array dalla memoria dopo aver creato la stringa
+            Arrays.fill(passwordChars, '*'); 
+        } else {
+            // Backup per ambienti senza console (es. alcuni IDE)
+            password = scanner.nextLine().trim();
+        }
+
         if (email.isEmpty() || password.isEmpty()) {
             System.err.println("Errore: informazioni mancanti!"); //NOSONAR
             start();
             return;
         }
 
-        // 1. Prepariamo il bean con i dati inseriti
         BeanUtenti beanLogin = new BeanUtenti(null, null, null, null, null, null);
         beanLogin.setEmail(email);
         beanLogin.setPassword(password);
 
         try {
-            // 2. Chiamata al controller per la verifica
             BeanUtenti utenteLoggato = controller.verificaUtente(beanLogin);
             
             if (utenteLoggato != null) {
                 System.out.println("\nLogin effettuato! Benvenuto " + utenteLoggato.getName()); //NOSONAR
-                
-                // 3. Reindirizzamento differenziato in base al tipo
                 reindirizzaUtente(utenteLoggato);
             }
             
         } catch (Exception e) {
             System.err.println("\n Errore di accesso: " + e.getMessage()); //NOSONAR
             System.out.println("Riprova oppure scrivi 'esci' per terminare."); //NOSONAR
-            if (!scanner.nextLine().equalsIgnoreCase("esci")) {
+            String comando = scanner.nextLine();
+            if (!comando.equalsIgnoreCase("esci")) {
                 start();
             }
         }
     }
 
     private void reindirizzaUtente(BeanUtenti utente) {
-        
         if ("Studente".equalsIgnoreCase(utente.getTipo())) {
             System.out.println("[Sistema] Caricamento Menu Studente..."); //NOSONAR
-            MenuPrincipaleCLI menuStudente = new MenuPrincipaleCLI(utente);
-            menuStudente.start();
+            new MenuPrincipaleCLI(utente).start();
         } else {
             System.out.println("[Sistema] Caricamento Menu Host..."); //NOSONAR
-            HostMenuCLI menuHost = new HostMenuCLI(utente);
-            menuHost.start();
-            
+            new HostMenuCLI(utente).start();
         }
     }
-
 }
