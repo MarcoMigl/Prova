@@ -38,7 +38,7 @@ public class ChatCLI {
 
                 switch (scelta) {
                     case "1" -> inviaMessaggioUI();
-                    case "2" -> {} 
+                    case "2" -> {//Refresh} 
                     case "3" -> {
                         abbandonaGruppoUI();
                         exit = true;
@@ -81,7 +81,7 @@ public class ChatCLI {
     }
 
     private void abbandonaGruppoUI() throws SQLException {
-        System.out.print("Sei sicuro di voler lasciare/eliminare il gruppo? (s/n): ");
+        System.out.print("Sei sicuro di voler lasciare/eliminare il gruppo? (s/n): "); //NOSONAR
         if (scanner.nextLine().equalsIgnoreCase("s")) {
            try {
                controller.abbandonaGruppo(utenteLoggato, gruppoCorrente);
@@ -93,4 +93,5 @@ public class ChatCLI {
         }
     }
 }
+
 
