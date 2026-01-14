@@ -21,8 +21,10 @@ public class CreazioneUtenteCLI {
         System.out.println("\n--- REGISTRAZIONE NUOVO UTENTE ---"); //NOSONAR
 
         try {
+            // 1. Scelta del Tipo di Utente
             String tipo = selezionaTipoUtente();
 
+            // 2. Acquisizione Dati Comuni
             System.out.print("Nome: "); //NOSONAR
             String nome = scanner.nextLine().trim();
             System.out.print("Cognome: "); //NOSONAR
@@ -34,65 +36,56 @@ public class CreazioneUtenteCLI {
             System.out.print("Password: "); //NOSONAR
             String password = scanner.nextLine().trim();
 
-            validazioneInput(nome, cognome, email, citta, password);
-
-            BeanUtenti beanUtenti = new BeanUtenti(tipo, nome, cognome, email, password, citta);
-
-            // Gestione Host vs Studente
-            if ("Host".equalsIgnoreCase(tipo)) {
-                gestisciRegistrazioneHost(beanUtenti);
-            } else {
-                salvaUtenteNelSistema(beanUtenti);
+            // Validazione base dei campi obbligatori
+            if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || citta.isEmpty() || password.isEmpty()) {
+                throw new CampiVuotiException("Controlli di aver inserito una mail valida o dati correttamente.");
+            }
+            if(!email.contains("@")){
+                throw new EmailNonValidaException("Inserire una email valida.");
             }
 
-            eseguiNavigazionePostRegistrazione(tipo, beanUtenti);
+            // 3. Creazione del BeanUtenti
+            BeanUtenti beanUtenti = new BeanUtenti(tipo, nome, cognome, email, password, citta);
+
+            // Gestione dati extra se l'utente è un Host
+            if ("Host".equalsIgnoreCase(tipo)) {
+                System.out.println("Benvenuto Host! Reindirizzamento alla registrazione dei dettagli della struttura..."); //NOSONAR
+                System.out.println("\n--- DATI ATTIVITÀ (Obbligatori per Host) ---"); //NOSONAR
+                
+                new CreazioneStruttureCLI(beanUtenti).start();
+                
+            } else {
+                // 4. Chiamata al metodo estratto per evitare il try annidato
+                salvaUtente(beanUtenti);
+            }
+
+            // 5. NAVIGAZIONE POST-REGISTRAZIONE
+            if ("Host".equalsIgnoreCase(tipo)) {
+                System.out.println("Benvenuto Host! Reindirizzamento al menu..."); //NOSONAR
+                new HostMenuCLI(beanUtenti).start();
+            } else {
+                System.out.println("Benvenuto Studente! Reindirizzamento al menu principale..."); //NOSONAR
+                new MenuPrincipaleCLI(beanUtenti).start();
+            }
 
         } catch (CampiVuotiException | EmailNonValidaException e) {
-            System.err.println("\n Errore nei dati: " + e.getMessage()); //NOSONAR
-            chiediRiprova();
+            System.err.println("\n Errore nei dati inseriti: " + e.getMessage()); //NOSONAR
+            System.out.println("Vuoi riprovare la registrazione? (s/n)"); //NOSONAR
+            if(scanner.nextLine().equalsIgnoreCase("s")) start();
         } catch (Exception e) {
-            // Qui gestiamo l'errore generico senza Logger
-            System.err.println("\n Errore tecnico: " + e.getMessage()); //NOSONAR
+            System.err.println("\n Errore tecnico durante la registrazione: " + e.getMessage()); //NOSONAR
         }
     }
 
-    private void validazioneInput(String n, String co, String e, String ci, String p) throws CampiVuotiException, EmailNonValidaException {
-        if (n.isEmpty() || co.isEmpty() || e.isEmpty() || ci.isEmpty() || p.isEmpty()) {
-            throw new CampiVuotiException("Tutti i campi sono obbligatori.");
-        }
-        if (!e.contains("@")) {
-            throw new EmailNonValidaException("Inserire una email valida.");
-        }
-    }
-
-    private void salvaUtenteNelSistema(BeanUtenti bean) {
-        // Metodo estratto per eliminare il nested try
+    /**
+     * Metodo estratto per gestire il salvataggio senza annidare i try
+     */
+    private void salvaUtente(BeanUtenti beanUtenti) {
         try {
-            controller.creazioneUtente(bean);
+            controller.creazioneUtente(beanUtenti);
             System.out.println("\n Registrazione effettuata con successo!"); //NOSONAR
         } catch (Exception e) {
-            System.err.println("Errore durante il salvataggio: " + e.getMessage()); //NOSONAR
-        }
-    }
-
-    private void gestisciRegistrazioneHost(BeanUtenti bean) {
-        System.out.println("Configurazione struttura per Host..."); //NOSONAR
-        new CreazioneStruttureCLI(bean).start();
-    }
-
-    private void eseguiNavigazionePostRegistrazione(String tipo, BeanUtenti bean) {
-        if ("Host".equalsIgnoreCase(tipo)) {
-            new HostMenuCLI(bean).start();
-        } else {
-            System.out.println("Benvenuto Studente! Caricamento menu..."); //NOSONAR
-            new MenuPrincipaleCLI(bean).start();
-        }
-    }
-
-    private void chiediRiprova() {
-        System.out.println("Vuoi riprovare la registrazione? (s/n)"); //NOSONAR
-        if (scanner.nextLine().equalsIgnoreCase("s")) {
-            start();
+            System.out.println("Errore caricamento: " + e.getMessage()); //NOSONAR
         }
     }
 
@@ -103,9 +96,9 @@ public class CreazioneUtenteCLI {
             System.out.println("2) Host"); //NOSONAR
             System.out.print("Scelta: "); //NOSONAR
             String scelta = scanner.nextLine();
-            if ("1".equals(scelta)) return "Studente";
-            if ("2".equals(scelta)) return "Host";
-            System.out.println("Scelta non valida."); //NOSONAR
+            if (scelta.equals("1")) return "Studente";
+            if (scelta.equals("2")) return "Host";
+            System.out.println("Scelta non valida. Inserisci 1 o 2."); //NOSONAR
         }
     }
 }
