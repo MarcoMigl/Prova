@@ -29,11 +29,11 @@ public class RicercaCLI {
     public void start() {
         boolean back = false;
         while (!back) {
-            System.out.println("\n--- MENU RICERCA ---");
-            System.out.println("1. Cerca Gruppi di Studio");
-            System.out.println("2. Cerca Strutture");
-            System.out.println("3. Torna al menu precedente");
-            System.out.print("Scelta: ");
+            System.out.println("\n--- MENU RICERCA ---"); //NOSONAR
+            System.out.println("1. Cerca Gruppi di Studio"); //NOSONAR
+            System.out.println("2. Cerca Strutture"); //NOSONAR
+            System.out.println("3. Torna al menu precedente"); //NOSONAR
+            System.out.print("Scelta: "); //NOSONAR
 
             String scelta = scanner.nextLine();
 
@@ -41,7 +41,7 @@ public class RicercaCLI {
                 case "1" -> gestioneRicercaGruppi();
                 case "2" -> gestioneRicercaStrutture();
                 case "3" -> back = true;
-                default -> System.out.println("Scelta non valida.");
+                default -> System.out.println("Scelta non valida."); //NOSONAR
             }
         }
     }
@@ -49,125 +49,125 @@ public class RicercaCLI {
     // --- SEZIONE GRUPPI DI STUDIO ---
 
     private void gestioneRicercaGruppi() {
-        System.out.println("\n--- RICERCA GRUPPI ---");
-        System.out.print("Filtra per nome (vuoto per skip): ");
+        System.out.println("\n--- RICERCA GRUPPI ---"); //NOSONAR
+        System.out.print("Filtra per nome (vuoto per skip): "); //NOSONAR
         String nome = promptInput();
-        System.out.print("Filtra per città (vuoto per skip): ");
+        System.out.print("Filtra per città (vuoto per skip): "); //NOSONAR
         String citta = promptInput();
-        System.out.print("Filtra per materia (vuoto per skip): ");
+        System.out.print("Filtra per materia (vuoto per skip): "); //NOSONAR
         String materia = promptInput();
 
         try {
             List<BeanGruppo> risultati = controllerGruppo.cercaGruppi(nome, citta, materia);
             if (risultati.isEmpty()) {
-                System.out.println("Nessun gruppo trovato.");
+                System.out.println("Nessun gruppo trovato."); //NOSONAR
             } else {
                 mostraRisultatiGruppi(risultati);
             }
         } catch (Exception e) {
-            System.err.println("Errore durante la ricerca: " + e.getMessage());
+            System.err.println("Errore durante la ricerca: " + e.getMessage()); //NOSONAR
         }
     }
 
     private void mostraRisultatiGruppi(List<BeanGruppo> risultati) {
-        System.out.println("\nGRUPPI TROVATI:");
+        System.out.println("\nGRUPPI TROVATI:"); //NOSONAR
         for (int i = 0; i < risultati.size(); i++) {
             BeanGruppo g = risultati.get(i);
-            System.out.printf("%d) %-20s | %-15s | %-15s%n", (i + 1), g.getNome(), g.getCitta(), g.getMateria());
+            System.out.printf("%d) %-20s | %-15s | %-15s%n", (i + 1), g.getNome(), g.getCitta(), g.getMateria()); //NOSONAR
         }
         gestioneSelezioneGruppo(risultati);
     }
 
     private void gestioneSelezioneGruppo(List<BeanGruppo> risultati) {
-        System.out.print("\nInserisci il numero del gruppo per unirti (o 0 per annullare): ");
+        System.out.print("\nInserisci il numero del gruppo per unirti (o 0 per annullare): "); //NOSONAR
         try {
             int indice = Integer.parseInt(scanner.nextLine()) - 1;
             if (indice >= 0 && indice < risultati.size()) {
                 controllerGruppo.aggiungiGruppo(beanUtente, risultati.get(indice));
-                System.out.println("[OK] Ti sei unito al gruppo con successo!");
+                System.out.println("[OK] Ti sei unito al gruppo con successo!"); //NOSONAR
             }
         } catch (Exception e) {
-            System.out.println("Operazione non riuscita: " + e.getMessage());
+            System.out.println("Operazione non riuscita: " + e.getMessage()); //NOSONAR
         }
     }
 
     // --- SEZIONE STRUTTURE ---
 
     private void gestioneRicercaStrutture() {
-        System.out.println("\n--- RICERCA STRUTTURE ---");
-        System.out.print("Nome struttura (vuoto per skip): ");
+        System.out.println("\n--- RICERCA STRUTTURE ---"); //NOSONAR
+        System.out.print("Nome struttura (vuoto per skip): "); //NOSONAR
         String nome = promptInput();
-        System.out.print("Città (vuoto per skip): ");
+        System.out.print("Città (vuoto per skip): "); //NOSONAR
         String citta = promptInput();
-        System.out.print("Tipo (Tutti, Bar, Biblioteca, Università): ");
+        System.out.print("Tipo (Tutti, Bar, Biblioteca, Università): "); //NOSONAR
         String tipo = promptInput();
 
         try {
             List<BeanStruttura> risultati = controllerStrutture.cercaStrutture(nome, citta, tipo);
             if (risultati.isEmpty()) {
-                System.out.println("Nessuna struttura trovata.");
+                System.out.println("Nessuna struttura trovata."); //NOSONAR
             } else {
                 mostraRisultatiStrutture(risultati);
             }
         } catch (Exception e) {
-            System.err.println("Errore durante la ricerca: " + e.getMessage());
+            System.err.println("Errore durante la ricerca: " + e.getMessage()); //NOSONAR
         }
     }
 
     private void mostraRisultatiStrutture(List<BeanStruttura> risultati) {
-        System.out.println("\nSTRUTTURE TROVATE:");
+        System.out.println("\nSTRUTTURE TROVATE:"); //NOSONAR
         for (int i = 0; i < risultati.size(); i++) {
             BeanStruttura s = risultati.get(i);
-            System.out.println((i + 1) + ") " + s.getName() + " [" + s.getTipoAttivita() + "] - " + s.getCitta());
+            System.out.println((i + 1) + ") " + s.getName() + " [" + s.getTipoAttivita() + "] - " + s.getCitta()); //NOSONAR
         }
         gestioneSelezioneStruttura(risultati);
     }
 
     private void gestioneSelezioneStruttura(List<BeanStruttura> risultati) {
-        System.out.print("\nInserisci il numero della struttura per i dettagli (o 0 per annullare): ");
+        System.out.print("\nInserisci il numero della struttura per i dettagli (o 0 per annullare): "); //NOSONAR
         try {
             int indice = Integer.parseInt(scanner.nextLine()) - 1;
             if (indice >= 0 && indice < risultati.size()) {
                 visualizzaDettagliStruttura(risultati.get(indice));
             }
         } catch (Exception e) {
-            System.out.println("Scelta non valida.");
+            System.out.println("Scelta non valida."); //NOSONAR
         }
     }
 
     private void visualizzaDettagliStruttura(BeanStruttura s) {
-        System.out.println("\n========================================");
-        System.out.println("           DETTAGLI STRUTTURA           ");
-        System.out.println("========================================");
-        System.out.println("NOME:         " + s.getName());
-        System.out.println("CATEGORIA:    " + (s.getTipoAttivita() != null ? s.getTipoAttivita().toUpperCase() : "GENERICA"));
-        System.out.println("CITTA':       " + s.getCitta());
-        System.out.println("INDIRIZZO:    " + s.getIndirizzo());
-        System.out.println("ORARIO:       " + (s.getOrario() != null ? s.getOrario() : "Non disponibile"));
-        System.out.print("WIFI:         " + (s.hasWifi() ? "[SI]" : "[NO]"));
-        System.out.println(" | RISTORAZIONE: " + (s.hasRistorazione() ? "[SI]" : "[NO]"));
-        System.out.println("FOTO:         " + (s.getFoto() != null && !s.getFoto().isEmpty() ? s.getFoto() : "Nessuna foto"));
+        System.out.println("\n========================================"); //NOSONAR
+        System.out.println("           DETTAGLI STRUTTURA           "); //NOSONAR
+        System.out.println("========================================"); //NOSONAR
+        System.out.println("NOME:         " + s.getName()); //NOSONAR
+        System.out.println("CATEGORIA:    " + (s.getTipoAttivita() != null ? s.getTipoAttivita().toUpperCase() : "GENERICA")); //NOSONAR
+        System.out.println("CITTA':       " + s.getCitta()); //NOSONAR
+        System.out.println("INDIRIZZO:    " + s.getIndirizzo()); //NOSONAR
+        System.out.println("ORARIO:       " + (s.getOrario() != null ? s.getOrario() : "Non disponibile")); //NOSONAR
+        System.out.print("WIFI:         " + (s.hasWifi() ? "[SI]" : "[NO]")); //NOSONAR
+        System.out.println(" | RISTORAZIONE: " + (s.hasRistorazione() ? "[SI]" : "[NO]")); //NOSONAR
+        System.out.println("FOTO:         " + (s.getFoto() != null && !s.getFoto().isEmpty() ? s.getFoto() : "Nessuna foto")); //NOSONAR
 
         // 2. Caricamento e Visualizzazione Recensioni
-        System.out.println("\n--- RECENSIONI UTENTI ---");
+        System.out.println("\n--- RECENSIONI UTENTI ---"); //NOSONAR
         try {
             List<BeanRecensioni> lista = controllerRecensioni.cercaRecensioniPerStruttura(s);
             if (lista.isEmpty()) {
-                System.out.println("[ Nessuna recensione ancora presente ]");
+                System.out.println("[ Nessuna recensione ancora presente ]"); //NOSONAR
             } else {
                 for (BeanRecensioni b : lista) {
-                    System.out.printf("- %s: %d/5 ⭐ | %s%n", b.getAutore(), b.getVoto(), b.getTesto());
+                    System.out.printf("- %s: %d/5 ⭐ | %s%n", b.getAutore(), b.getVoto(), b.getTesto()); //NOSONAR
                 }
             }
         } catch (Exception e) {
-            System.out.println("[ Errore nel caricamento delle recensioni ]");
+            System.out.println("[ Errore nel caricamento delle recensioni ]"); //NOSONAR
         }
 
         // 3. Menu Azioni
-        System.out.println("\n----------------------------------------");
-        System.out.println("S) Scrivi una recensione");
-        System.out.println("I) Torna indietro");
-        System.out.print("Scelta: ");
+        System.out.println("\n----------------------------------------"); //NOSONAR
+        System.out.println("S) Scrivi una recensione"); //NOSONAR
+        System.out.println("I) Torna indietro"); //NOSONAR
+        System.out.print("Scelta: "); //NOSONAR
 
         String scelta = scanner.nextLine().toUpperCase();
 
@@ -183,4 +183,5 @@ public class RicercaCLI {
         String input = scanner.nextLine().trim();
         return input.isEmpty() ? null : input;
     }
+
 }
