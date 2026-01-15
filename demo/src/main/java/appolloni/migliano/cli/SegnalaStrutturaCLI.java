@@ -1,14 +1,12 @@
 package appolloni.migliano.cli;
 
-//import java.io.IOException;
-//import java.sql.SQLException;
+
 import java.util.Scanner;
 
 import appolloni.migliano.bean.BeanStruttura;
 import appolloni.migliano.bean.BeanUtenti;
 import appolloni.migliano.controller.ControllerGestioneStrutture;
-//import appolloni.migliano.exception.CampiVuotiException;
-//import appolloni.migliano.exception.EntitaNonTrovata;
+
 
 public class SegnalaStrutturaCLI {
 
@@ -96,4 +94,5 @@ public class SegnalaStrutturaCLI {
         String risp = scanner.nextLine().trim().toLowerCase();
         return risp.equals("s") || risp.equals("si");
     }
+
 }
