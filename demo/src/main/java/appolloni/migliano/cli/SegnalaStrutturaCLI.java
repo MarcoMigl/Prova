@@ -84,8 +84,9 @@ public class SegnalaStrutturaCLI {
             try {
                 int scelta = Integer.parseInt(scanner.nextLine());
                 if (scelta >= 1 && scelta <= opzioni.length) return opzioni[scelta - 1];
-            } catch (Exception e) {}
+            } catch (Exception e) {
             System.out.println("Riprova."); //NOSONAR
+            }
         }
     }
 
@@ -96,3 +97,4 @@ public class SegnalaStrutturaCLI {
     }
 
 }
+
