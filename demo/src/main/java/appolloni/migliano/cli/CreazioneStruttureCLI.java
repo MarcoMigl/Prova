@@ -1,6 +1,9 @@
 package appolloni.migliano.cli;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -26,97 +29,120 @@ public class CreazioneStruttureCLI {
 
     public void start() {
         System.out.println("\n========================================"); //NOSONAR
-        System.out.println("   REGISTRAZIONE DELLA TUA STRUTTURA    "); //NOSONAR
+        System.out.println("    REGISTRAZIONE DELLA TUA STRUTTURA    "); //NOSONAR
         System.out.println("========================================"); //NOSONAR
-        System.out.println("Benvenuto " + utenteCorrente.getName() + ", inserisci i dati del locale."); //NOSONAR
+        System.out.println("Benvenuto " + utenteCorrente.getName());  //NOSONAR
+        System.out.println("Struttura: " + utenteCorrente.getNomeAttivita() + " (" + utenteCorrente.getTipoAttivita() + ")");  //NOSONAR
 
         try {
-            // 1. Acquisizione dati tramite input
-            System.out.print("Tipo Struttura: "); //NOSONAR
-            System.out.println(utenteCorrente.getTipoAttivita()); //NOSONAR
-            String tipo = utenteCorrente.getTipoAttivita();
-            System.out.print("Nome Attività: "); //NOSONAR
-            System.out.print(utenteCorrente.getNomeAttivita()); //NOSONAR
-            String strutt = utenteCorrente.getNomeAttivita();
-            String tipoAttivita = selezionaOpzione("Tipo Struttura:", new String[]{"Bar", "Universita", "Biblioteca"});
-            System.out.print("Città: "); //NOSONAR
+            // 1. Acquisizione dati
+            String tipoProprieta = selezionaOpzione("Tipo Proprietà:", new String[]{"Privata", "Pubblica"});
+            
+            System.out.print("Città: ");  //NOSONAR
             String citta = scanner.nextLine().trim();
              
-            System.out.print("Indirizzo: "); //NOSONAR
+            System.out.print("Indirizzo: ");  //NOSONAR
             String indirizzo = scanner.nextLine().trim();
             
-            System.out.print("Orario apertura (es. 08:00-20:00): "); //NOSONAR
+            System.out.print("Orario apertura (es. 08:00-20:00): ");  //NOSONAR
             String orario = scanner.nextLine().trim();
 
-            // 2. Gestione CheckBox (Si/No)
             boolean wifi = chiediConferma("La struttura dispone di WiFi?");
             boolean ristorazione = chiediConferma("La struttura dispone di servizio ristorazione?");
 
-            // 3. Creazione dell'utente 
+            // 2. Gestione Foto (Implementazione simile alla GUI)
+            String nomeFotoFinale = "placeholder.png";  
+            System.out.print("Vuoi caricare una foto? Inserisci il percorso completo (o premi Invio per saltare): ");  //NOSONAR
+            String pathFoto = scanner.nextLine().trim();
+            
+            if (!pathFoto.isEmpty()) {
+                File fileFoto = new File(pathFoto);
+                if (fileFoto.exists() && fileFoto.isFile()) {
+                    nomeFotoFinale = salvaFileSuDisco(fileFoto);
+                    System.out.println("Foto caricata con successo: " + nomeFotoFinale);  //NOSONAR
+                } else {
+                    System.out.println("File non trovato. Verrà usata l'immagine predefinita.");  //NOSONAR
+                }
+            }
+
+            // 3. Salvataggio Utente 
             controllerUtente.creazioneUtente(utenteCorrente);
-            System.out.println("Registrazione Utente effettuata..."); //NOSONAR
+            System.out.println("Account Host creato correttamente...");  //NOSONAR
 
             // 4. Preparazione BeanStruttura
-            
-            BeanStruttura beanStruttura = new BeanStruttura(tipo, strutt, citta, indirizzo, wifi, ristorazione);
+            BeanStruttura beanStruttura = new BeanStruttura(tipoProprieta, utenteCorrente.getNomeAttivita(), citta, indirizzo, wifi, ristorazione);
             beanStruttura.setOrario(orario);
-            beanStruttura.setTipoAttivita(tipoAttivita);
-            beanStruttura.setGestore(utenteCorrente.getName());
-            beanStruttura.setFoto("placeholder.png"); // Default per CLI se non implementi upload
+            beanStruttura.setTipoAttivita(utenteCorrente.getTipoAttivita());
+            beanStruttura.setGestore(utenteCorrente.getEmail()); // Usiamo l'email come nel database
+            beanStruttura.setFoto(nomeFotoFinale);
 
-            // 5. Chiamata al Controller per il salvataggio
-            controllerStrutture.creaStruttura(utenteCorrente, beanStruttura);
+            // 5. Logica di Rivendicazione vs Nuova Creazione
+            if (controllerStrutture.esistenzaStruttura(utenteCorrente.getNomeAttivita())) {
+                System.out.println("Struttura già segnalata dal sistema. Procedo con la rivendicazione...");  //NOSONAR
+                controllerStrutture.rivendicaStruttura(beanStruttura, utenteCorrente.getEmail());
+            } else {
+                controllerStrutture.creaStruttura(utenteCorrente, beanStruttura);
+            }
 
-            System.out.println("\n[OK] Struttura '" + utenteCorrente.getNomeAttivita() + "' registrata con successo!"); //NOSONAR
-            
-            // 6. Navigazione finale
-            System.out.println("Premi invio per tornare al Menu..."); //NOSONAR
+            System.out.println("\n[OK] Registrazione completata con successo!");  //NOSONAR
+            System.out.println("Premi invio per accedere al tuo pannello...");  //NOSONAR
             scanner.nextLine();
-           
-             new HostMenuCLI(utenteCorrente).start(); 
+            
+            new HostMenuCLI(utenteCorrente).start(); 
 
         } catch (CampiVuotiException e) {
-            System.err.println("\n[ERRORE] " + e.getMessage()); //NOSONAR
+            System.err.println("\n[ERRORE] Dati mancanti: " + e.getMessage());  //NOSONAR
             riprova();
         } catch (SQLException e) {
-            System.out.println("Errore Database"); //NOSONAR
+            System.err.println("\n[ERRORE DB] Errore durante il salvataggio: " + e.getMessage());  //NOSONAR
         } catch (IOException e) {
-            System.out.println("Errore I/O"); //NOSONAR
+            System.err.println("\n[ERRORE I/O] Impossibile gestire il file immagine.");  //NOSONAR
         } catch (Exception e) {
-            System.err.println("\n[ERRORE IMPREVISTO] " + e.getMessage()); //NOSONAR
+            System.err.println("\n[ERRORE] " + e.getMessage());  //NOSONAR
+            e.printStackTrace();
         }
     }
 
+    // Metodo per il salvataggio file 
+    private String salvaFileSuDisco(File fileInput) throws IOException {
+        String folderPath = System.getProperty("user.home") + File.separator + "IspwImages";
+        File folder = new File(folderPath);
+        if (!folder.exists()) folder.mkdir();
+
+        String nuovoNome = "Struttura_" + System.currentTimeMillis() + "_" + fileInput.getName();
+        File destinazione = new File(folder, nuovoNome);
+
+        Files.copy(fileInput.toPath(), destinazione.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        return nuovoNome;
+    }
+
     private void riprova() {
-        System.out.print("Vuoi riprovare l'inserimento? (s/n): "); //NOSONAR
+        System.out.print("Vuoi riprovare l'inserimento? (s/n): ");  //NOSONAR
         if(scanner.nextLine().equalsIgnoreCase("s")) {
             start();
         }
     }
 
-  
-
-     private String selezionaOpzione(String titolo, String[] opzioni) {
+    private String selezionaOpzione(String titolo, String[] opzioni) {
         while (true) {
-            System.out.println("\n" + titolo); //NOSONAR
+            System.out.println("\n" + titolo);  //NOSONAR
             for (int i = 0; i < opzioni.length; i++) {
-                System.out.println((i + 1) + ") " + opzioni[i]); //NOSONAR
+                System.out.println((i + 1) + ") " + opzioni[i]);  //NOSONAR
             }
-            System.out.print("Scelta (numero): "); //NOSONAR
+            System.out.print("Scelta (numero): ");  //NOSONAR
             try {
                 int scelta = Integer.parseInt(scanner.nextLine());
                 if (scelta >= 1 && scelta <= opzioni.length) {
                     return opzioni[scelta - 1];
                 }
-            } catch (Exception e) { /* Continua il ciclo */ }
-            System.out.println("Scelta non valida, riprova."); //NOSONAR
+            } catch (Exception e) { /* Errore di parsing, continua il ciclo */ }
+            System.out.println("Scelta non valida.");  //NOSONAR
         }
     }
-    // Helper per simulare CheckBox
+
     private boolean chiediConferma(String domanda) {
-        System.out.print(domanda + " (s/n): "); //NOSONAR
+        System.out.print(domanda + " (s/n): ");  //NOSONAR
         String risp = scanner.nextLine().trim().toLowerCase();
         return risp.equals("s") || risp.equals("si");
     }
-
 }
