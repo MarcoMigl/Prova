@@ -51,12 +51,12 @@ public class CreazioneUtenteCLI {
             if ("Host".equalsIgnoreCase(tipo)) {
                 System.out.println("Benvenuto Host! Reindirizzamento alla registrazione dei dettagli della struttura..."); //NOSONAR
                 System.out.println("\n--- DATI ATTIVITÀ (Obbligatori per Host) ---"); //NOSONAR
-                String tipo_att = selezionaDaLista();
+                String tipoatt = selezionaDaLista();
                 System.out.print("Nome Attività: "); //NOSONAR
                 String strutt = scanner.nextLine().trim();
 
                 beanUtenti.setNomeAttivita(strutt);
-                beanUtenti.setTipoAttivita(tipo_att);
+                beanUtenti.setTipoAttivita(tipoatt);
                 new CreazioneStruttureCLI(beanUtenti).start();
                 
             } else {
@@ -118,4 +118,5 @@ public class CreazioneUtenteCLI {
             System.out.println("Scelta non valida. Inserisci 1 o 2."); //NOSONAR
         }
     }
+
 }
