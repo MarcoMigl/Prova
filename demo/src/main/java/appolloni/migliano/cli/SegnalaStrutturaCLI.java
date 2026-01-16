@@ -91,7 +91,7 @@ public class SegnalaStrutturaCLI {
 
 
      private String acquisisciOrario() {
-        String regex = "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]-([0-1]?[0-9]|2[0-3]):[0-5][0-9]$";
+        String regex = "^([0-1]?//d|2[0-3]):[0-5]//d-([0-1]?//d|2[0-3]):[0-5]//d$";
         String input;
         while (true) {
             System.out.print("Orario apertura (es. 08:00-20:00): "); //NOSONAR
@@ -121,4 +121,5 @@ public class SegnalaStrutturaCLI {
         String risp = scanner.nextLine().trim().toLowerCase();
         return risp.equals("s") || risp.equals("si");
     }
+
 }
