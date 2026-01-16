@@ -61,15 +61,13 @@ public class CreazioneUtenteCLI {
                 // Lanciamo la CLI delle strutture
                 new CreazioneStruttureCLI(beanUtenti).start();
                 
-                // Usciamo dopo che la CLI delle strutture ha terminato (successo o errore)
-                return; 
                 
             } else {
                 // 4. Studente: salvataggio e navigazione immediata
                 salvaUtente(beanUtenti);
                 System.out.println("Benvenuto Studente! Reindirizzamento al menu principale..."); //NOSONAR
                 new MenuPrincipaleCLI(beanUtenti).start();
-                return;
+                
             }
 
         } catch (CampiVuotiException | EmailNonValidaException e) {
@@ -115,4 +113,5 @@ public class CreazioneUtenteCLI {
             System.out.println("Scelta non valida. Inserisci 1 o 2."); //NOSONAR
         }
     }
+
 }
