@@ -81,13 +81,12 @@ public class CreazioneStruttureCLI {
         } catch (SQLException e) {
             System.err.println("\n[ERRORE DB] Errore durante il salvataggio: " + e.getMessage());  //NOSONAR
             // Interrompe il flusso in caso di errore DB (es. email duplicata)
-            return; 
+          
         } catch (IOException e) {
             System.err.println("\n[ERRORE I/O] Impossibile gestire il file immagine.");  //NOSONAR
-            return;
+           
         } catch (Exception e) {
             System.err.println("\n[ERRORE] " + e.getMessage());  //NOSONAR
-            return;
         }
     }
 
@@ -99,7 +98,7 @@ public class CreazioneStruttureCLI {
     }
 
     private String acquisisciOrario() {
-        String regex = "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]-([0-1]?[0-9]|2[0-3]):[0-5][0-9]$";
+        String regex = "^([0-1]?//d|2[0-3]):[0-5]//d-([0-1]?//d|2[0-3]):[0-5]//d$";
         String input;
         while (true) {
             System.out.print("Orario apertura (es. 08:00-20:00): "); //NOSONAR
@@ -129,4 +128,5 @@ public class CreazioneStruttureCLI {
         String risp = scanner.nextLine().trim().toLowerCase();
         return risp.equals("s") || risp.equals("si");
     }
+
 }
