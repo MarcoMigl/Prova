@@ -74,39 +74,49 @@ public class ModificaStrutturaCLI {
     }
 
 
-    private String acquisisciOrario() {
-    String regex = "^([0-1]?\\d|2[0-3]):[0-5]\\d-([0-1]?\\d|2[0-3]):[0-5]\\d$";
+   private String acquisisciOrario() {
     String input;
-    
     while (true) {
         System.out.print("Orario apertura (es. 08:00-20:00): "); //NOSONAR
         input = scanner.nextLine().trim();
-        
-        if (input.matches(regex)) {
-            String[] parti = input.split("-");
-            
-            // 1. Controllo fondamentale per Sonar: verifica la lunghezza
-            if (parti.length >= 2) {
-                String[] inizio = parti[0].split(":");
-                String[] fine = parti[1].split(":");
-                
-                // 2. Controllo anche per gli split interni (HH:mm)
-                if (inizio.length >= 2 && fine.length >= 2) {
-                    int minutiInizio = Integer.parseInt(inizio[0]) * 60 + Integer.parseInt(inizio[1]);
-                    int minutiFine = Integer.parseInt(fine[0]) * 60 + Integer.parseInt(fine[1]);
-                    
-                    if (minutiFine > minutiInizio) {
-                        return input;
-                    } else {
-                        System.out.println("[ERRORE] L'orario di chiusura deve essere successivo a quello di apertura."); //NOSONAR
-                    }
-                }
-            }
-            // Se i controlli sopra falliscono, il ciclo ricomincia
-        } else {
-            System.out.println("[ERRORE] Formato non valido. Usa HH:mm-HH:mm (es. 09:00-18:00)."); //NOSONAR
+
+        if (input.isEmpty()) return "";
+
+        if (validaFormatoEIntervallo(input)) {
+            return input;
         }
+        
+        System.out.println("[ERRORE] Formato non valido o orario incoerente."); //NOSONAR
     }
+}
+
+private boolean validaFormatoEIntervallo(String input) {
+    String regex = "^([0-1]?\\d|2[0-3]):[0-5]\\d-([0-1]?\\d|2[0-3]):[0-5]\\d$";
+    
+    // 1. Controllo Regex (Livello 1)
+    if (!input.matches(regex)) {
+        return false;
+    }
+
+    String[] parti = input.split("-");
+    // Controllo sicurezza array (richiesto da Sonar)
+    if (parti.length < 2) return false;
+
+    String[] inizio = parti[0].split(":");
+    String[] fine = parti[1].split(":");
+
+    if (inizio.length < 2 || fine.length < 2) return false;
+
+    // 2. Calcolo logico
+    int minutiInizio = Integer.parseInt(inizio[0]) * 60 + Integer.parseInt(inizio[1]);
+    int minutiFine = Integer.parseInt(fine[0]) * 60 + Integer.parseInt(fine[1]);
+
+    if (minutiFine <= minutiInizio) {
+        System.out.println("[ERRORE] L'orario di chiusura deve essere successivo a quello di apertura."); //NOSONAR
+        return false;
+    }
+
+    return true;
 }
     /**
      * Helper per gestire la modifica dei valori boolean
@@ -123,6 +133,7 @@ public class ModificaStrutturaCLI {
     }
 
 }
+
 
 
 
