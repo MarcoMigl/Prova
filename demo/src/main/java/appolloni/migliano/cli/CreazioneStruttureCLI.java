@@ -98,7 +98,7 @@ public class CreazioneStruttureCLI {
     }
 
     private String acquisisciOrario() {
-        String regex = "^([0-1]?//d|2[0-3]):[0-5]//d-([0-1]?//d|2[0-3]):[0-5]//d$";
+        String regex = "^([0-1]?\\d|2[0-3]):[0-5]\\d-([0-1]?\\d|2[0-3]):[0-5]\\d$";
         String input;
         while (true) {
             System.out.print("Orario apertura (es. 08:00-20:00): "); //NOSONAR
@@ -130,3 +130,4 @@ public class CreazioneStruttureCLI {
     }
 
 }
+
