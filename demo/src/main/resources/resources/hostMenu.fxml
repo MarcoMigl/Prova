@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="appolloni.migliano.gui.GUIhostMenu"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: #f4f4f4;">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: white; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 0, 5, 0, 0);">
+            <Label text="University Spot | Host Dashboard" textFill="#333333">
+                <font><Font name="Arial Bold" size="18.0"/></font>
+            </Label>
+            
+            <Region HBox.hgrow="ALWAYS" /> <Label fx:id="lblNome" text="Benvenuto, Utente" style="-fx-font-weight: bold; -fx-text-fill: #555;" />
+            
+            <Button fx:id="btnModifica" text="Cambia Foto" onAction="#clickModificaImmagini" 
+                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;"/>
+            
+            <Button text="Esci" onAction="#clickLogout" 
+                    style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.3" style="-fx-background-color: transparent; -fx-padding: 15;">
+            
+            <VBox spacing="10" style="-fx-background-color: white;">
+                <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                
+                <Label text="Ultime Recensioni" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+                <Separator />
+                
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: white;" VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="containerRecensioni" spacing="10">
+                            <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                            <Label fx:id="lblNotifiche" text="Nessuna recensione ricevuta." textFill="#999" wrapText="true" />
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </VBox>
+
+            <VBox spacing="15" style="-fx-background-color: white;">
+                <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+                
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="La tua Struttura" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button text="Aggiorna Dati" onAction="#clickAggiornaDati" style="-fx-background-color: #e0e0e0; -fx-cursor: hand;" /> 
+                </HBox>
+                
+                <Separator />
+
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: white;" VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox spacing="20" alignment="TOP_CENTER">
+                            
+                            <HBox alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #f9f9f9; -fx-background-radius: 5;">
+                                <ImageView fx:id="imgStruttura" fitHeight="250.0" fitWidth="500.0" preserveRatio="true" 
+                                           style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" />
+                            </HBox>
+
+                            <GridPane hgap="20" vgap="15" alignment="CENTER_LEFT">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="120" halignment="RIGHT" />
+                                    <ColumnConstraints hgrow="ALWAYS" />
+                                </columnConstraints>
+
+                                <Label text="Nome:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblStrutturaNome" text="-" style="-fx-font-size: 14px;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Tipo:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblTipo" text="-" style="-fx-font-size: 14px;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Indirizzo:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblIndirizzo" text="-" style="-fx-font-size: 14px;" GridPane.rowIndex="2" GridPane.columnIndex="1" wrapText="true"/>
+
+                                <Label text="Città:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblCitta" text="-" style="-fx-font-size: 14px;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                                <Label text="Orario:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblOrario" text="-" style="-fx-font-size: 14px;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                                <Label text="Servizi:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                                <HBox spacing="10" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                                    <Label text="WiFi:" style="-fx-text-fill: #888;"/>
+                                    <Label fx:id="lblWifi" text="-" style="-fx-font-weight: bold;"/>
+                                    <Label text="|" style="-fx-text-fill: #ccc;"/>
+                                    <Label text="Ristorazione:" style="-fx-text-fill: #888;"/>
+                                    <Label fx:id="lblRistorazione" text="-" style="-fx-font-weight: bold;"/>
+                                </HBox>
+
+                                <Label text="Attività:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblTipoAttivita" text="-" style="-fx-font-size: 14px;" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                                
+                                <Label text="Email Gestore:" style="-fx-font-weight: bold; -fx-text-fill: #666;" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblGestore" text="-" style="-fx-font-size: 14px; -fx-text-fill: #007bff;" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                            </GridPane>
+
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>

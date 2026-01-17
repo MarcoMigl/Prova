@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="appolloni.migliano.gui.GUIprofiloUtente"
+           style="-fx-background-color: #eef2f3;">
+
+    <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+        <content>
+            <StackPane>
+                <padding><Insets top="30" bottom="30"/></padding>
+
+                <VBox alignment="TOP_CENTER" spacing="20.0" maxWidth="500"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <children>
+                        <Label text="Il tuo Profilo" textFill="#333333">
+                            <font><Font name="Arial Bold" size="24.0"/></font>
+                        </Label>
+                        <Label text="Gestisci le tue informazioni personali" textFill="#777777"/>
+                        
+                        <Separator />
+                        
+                        <VBox spacing="10" style="-fx-background-color: #f8f9fa; -fx-padding: 20; -fx-background-radius: 5; -fx-border-color: #dee2e6; -fx-border-radius: 5;">
+                            <Label text="Dati Personali" style="-fx-font-weight: bold; -fx-text-fill: #007bff;"/>
+                            
+                            <GridPane hgap="15" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="80" halignment="RIGHT" /> <ColumnConstraints hgrow="ALWAYS" /> </columnConstraints>
+
+                                <Label text="Nome:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblNome" style="-fx-font-weight: bold; -fx-text-fill: #555;"  text="-" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Cognome:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblCognome" style="-fx-font-weight: bold; -fx-text-fill: #555;"  text="-" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Email:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblEmail"  style="-fx-font-weight: bold; -fx-text-fill: #555;" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                <Label text="Città:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblCitta" style="-fx-font-weight: bold; -fx-text-fill: #555;" text="-" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                                <Label text="Ruolo:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                <Label fx:id="lblTipo" text="-" style="-fx-background-color: #555; -fx-padding: 3 8; -fx-background-radius: 10;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                            </GridPane>
+                        </VBox>
+
+                        <Separator />
+
+                        <Button fx:id="btnTogglePassword" text="Modifica Password ▼" maxWidth="Infinity" onAction="#clickTogglePassword" 
+                                style="-fx-background-color: transparent; -fx-text-fill: #007bff; -fx-border-color: #007bff; -fx-border-radius: 5; -fx-cursor: hand;"/>
+
+                        <VBox fx:id="boxPassword" spacing="10" visible="false" managed="false" 
+                              style="-fx-background-color: #fff3cd; -fx-padding: 15; -fx-border-color: #ffeeba; -fx-border-radius: 5;">
+                            
+                            <Label text="Sicurezza Account" style="-fx-font-weight: bold; -fx-text-fill: #856404;"/>
+
+                            <VBox spacing="5">
+                                <Label text="Vecchia Password"/>
+                                <PasswordField fx:id="txtOldPass" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;"/>
+                            </VBox>
+
+                            <VBox spacing="5">
+                                <Label text="Nuova Password"/>
+                                <PasswordField fx:id="txtNewPass" promptText="Min. 8 caratteri" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;"/>
+                            </VBox>
+
+                            <VBox spacing="5">
+                                <Label text="Conferma Password"/>
+                                <PasswordField fx:id="txtConfirmPass" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;"/>
+                            </VBox>
+
+                            <Label fx:id="lblErrorePass" text="" wrapText="true"/>
+
+                            <Button text="SALVA NUOVA PASSWORD" maxWidth="Infinity" onAction="#clickSalvaPassword" 
+                                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                        </VBox>
+                        
+                        <Button text="Torna al Menu" onAction="#clickIndietro" 
+                                maxWidth="Infinity"
+                                style="-fx-background-color: transparent; -fx-text-fill: #6c757d; -fx-underline: true; -fx-cursor: hand;"/>
+
+                    </children>
+                </VBox>
+            </StackPane>
+        </content>
+    </ScrollPane>
+
+</StackPane>

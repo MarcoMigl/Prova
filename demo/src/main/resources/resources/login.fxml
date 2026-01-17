@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="appolloni.migliano.gui.GUILogin"
+           style="-fx-background-color: #eef2f3;">
+
+    <VBox alignment="CENTER" spacing="20.0" maxWidth="380" maxHeight="450"
+          style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+
+        <children>
+            <Label text="Bentornato!" textFill="#333333">
+                <font>
+                    <Font name="Arial Bold" size="24.0"/>
+                </font>
+            </Label>
+            
+            <Label text="Inserisci le tue credenziali per accedere" style="-fx-text-fill: #888888; -fx-font-size: 12px;" />
+
+            <Region prefHeight="10.0" />
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Email" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                <TextField fx:id="txtEmail" promptText="nome@esempio.it" 
+                           style="-fx-background-radius: 5; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-background-color: white;"/>
+            </VBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Password" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                <PasswordField fx:id="txtPass" promptText="********" 
+                               style="-fx-background-radius: 5; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-background-color: white;"/>
+            </VBox>
+
+            <Label fx:id="lblRisultato" text="" wrapText="true" textAlignment="CENTER"
+                   style="-fx-text-fill: #dc3545; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+
+            <Region prefHeight="10.0" />
+
+            <Button fx:id="accedi" text="ACCEDI" onAction="#clickAccedi"
+                    maxWidth="Infinity" prefHeight="40.0"
+                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;"/>
+
+            <Button fx:id="indietro" text="Torna indietro" onAction="#clickIndietro"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: transparent; -fx-text-fill: #6c757d; -fx-underline: true; -fx-cursor: hand;"/>
+
+        </children>
+    </VBox>
+
+</StackPane>

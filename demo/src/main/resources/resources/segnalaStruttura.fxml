@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>  <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="appolloni.migliano.gui.GUISegnalaStruttura"
+           style="-fx-background-color: #eef2f3;">
+
+    <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+        <content>
+            <StackPane>
+                <padding><Insets top="30" bottom="30"/></padding>
+
+                <VBox alignment="TOP_CENTER" spacing="15.0" maxWidth="550"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <children>
+                        <Label text="Aggiungi una nuova Struttura" textFill="#e6a500">
+                            <font><Font name="Arial Bold" size="24.0"/></font>
+                        </Label>
+                        <Label text="Aiuta la community aggiungendo nuovi posti dove studiare" textFill="#777777"/>
+                        
+                        <Separator />
+                        
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Nome Struttura " style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <TextField fx:id="txtNome" promptText="Es. Biblioteca Comunale" style="-fx-background-radius: 5;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Gestore" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <Label fx:id="txtGestore" text=" Sconosciuto " style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                        </VBox>
+
+                        <GridPane hgap="15" vgap="15">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50" />
+                                <ColumnConstraints percentWidth="50" />
+                            </columnConstraints>
+
+                            <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <Label text="Città " style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                                <TextField fx:id="txtCitta" promptText="Es. Roma" style="-fx-background-radius: 5;"/>
+                            </VBox>
+                            <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label text="Indirizzo" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                                <TextField fx:id="txtIndirizzo" promptText="Via..." style="-fx-background-radius: 5;"/>
+                            </VBox>
+
+                            <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                <Label text="Tipo Struttura " style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                                <ComboBox fx:id="comboTipo" promptText="Seleziona..." maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #ccc;"/>
+                            </VBox>
+                            <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <Label text="Categoria" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                                <ComboBox fx:id="comboTipoAttivita" promptText="Seleziona..." maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #ccc;"/>
+                            </VBox>
+                        </GridPane>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Orario Apertura" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <TextField fx:id="txtOrario" promptText="Es. Lun-Ven 09:00 - 19:00" style="-fx-background-radius: 5;"/>
+                        </VBox>
+
+                        <Label text="Servizi Disponibili" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                        <HBox spacing="20">
+                            <CheckBox fx:id="checkWifi" style="-fx-font-weight: bold; -fx-text-fill: #555;"  text="Connessione Wi-Fi" />
+                            <CheckBox fx:id="checkRistorazione" style="-fx-font-weight: bold; -fx-text-fill: #555;"  text="Bar / Ristorazione" />
+                        </HBox>
+
+                        <Region prefHeight="10"/>
+
+                        <Label fx:id="lblRisultato" text="" wrapText="true" style="-fx-font-weight: bold;"/>
+
+                        <HBox spacing="10" alignment="CENTER">
+                            <Button text="Annulla" onAction="#clickIndietro" prefWidth="120"
+                                    style="-fx-background-color: white; -fx-text-fill: #666; -fx-border-color: #ccc; -fx-cursor: hand;" />
+                            
+                            <Button text="Aggiungi Struttura" onAction="#clickSegnala" prefWidth="150"  HBox.hgrow="ALWAYS"
+                                    style="-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" />
+                        </HBox>
+
+                    </children>
+                </VBox>
+            </StackPane>
+        </content>
+    </ScrollPane>
+
+</StackPane>

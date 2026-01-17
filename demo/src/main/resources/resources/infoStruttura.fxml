@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="appolloni.migliano.gui.GUIdettagliStruttura"
+           style="-fx-background-color: #eef2f3;">
+
+    <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+        <content>
+            <StackPane>
+                <padding><Insets top="30" bottom="30"/></padding>
+
+                <VBox alignment="TOP_CENTER" spacing="15.0" maxWidth="700"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Button text="&lt; Torna alla ricerca" onAction="#clickIndietro" 
+                                    style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-cursor: hand; -fx-underline: true;"/>
+                        </HBox>
+                        
+                        <Separator />
+
+                        <HBox spacing="30" alignment="TOP_LEFT">
+                            <VBox spacing="10" alignment="TOP_CENTER">
+                                <StackPane style="-fx-border-color: #ddd; -fx-border-radius: 5; -fx-padding: 5; -fx-background-color: #f9f9f9;">
+                                    <ImageView fx:id="imgStruttura" fitHeight="200.0" fitWidth="300.0" preserveRatio="true" />
+                                    <Label fx:id="lblNoFoto" text="Nessuna Foto" visible="false" textFill="#999"/>
+                                </StackPane>
+                                <Label fx:id="lblTipoAttivita" text="CATEGORIA" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5 10; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-size: 10px;"/>
+                            </VBox>
+
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label fx:id="lblNome" text="Nome Struttura" wrapText="true">
+                                    <font><Font name="Arial Bold" size="28.0" /></font>
+                                </Label>
+                                
+                                <GridPane hgap="10" vgap="10">
+                                    <columnConstraints>
+                                        <ColumnConstraints minWidth="80" /> <ColumnConstraints hgrow="ALWAYS" /> </columnConstraints>
+
+                                    <Label text="Città:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <Label fx:id="lblCitta" style="-fx-font-weight: bold; -fx-text-fill: #555;" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                    <Label text="Indirizzo:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                    <Label fx:id="lblIndirizzo" style="-fx-font-weight: bold; -fx-text-fill: #555;" text="-" wrapText="true" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                    <Label text="Orari:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                    <Label fx:id="lblOrario" style="-fx-font-weight: bold; -fx-text-fill: #555;" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                    <Label text="Gestore:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                    <Label fx:id="lblGestore" text="-" style="-fx-text-fill: #555;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                    
+                                    <Label text="Servizi:" style="-fx-font-weight: bold; -fx-text-fill: #555;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                    <HBox spacing="15" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                                        <Label text="WiFi: " textFill="#777"/><Label fx:id="lblWifi" text="-" style="-fx-font-weight: bold;"/>
+                                        <Label text="|" textFill="#ccc"/>
+                                        <Label text="Bar: " textFill="#777"/><Label fx:id="lblRistorazione" text="-" style="-fx-font-weight: bold;"/>
+                                    </HBox>
+                                </GridPane>
+                            </VBox>
+                        </HBox>
+
+                        <Separator />
+
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Recensioni" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button text="+ Scrivi Recensione" onAction="#clickScrivi" 
+                                    style="-fx-background-color: #ffc107; -fx-text-fill: #333; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                        </HBox>
+
+                        <ListView fx:id="listRecensioni" prefHeight="200.0" 
+                                  style="-fx-background-color: white; -fx-border-color: #eee; -fx-border-radius: 5;"/>
+
+                    </children>
+                </VBox>
+            </StackPane>
+        </content>
+    </ScrollPane>
+
+</StackPane>

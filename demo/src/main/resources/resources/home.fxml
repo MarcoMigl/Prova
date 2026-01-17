@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="appolloni.migliano.gui.GUIhome"
+           style="-fx-background-color: #eef2f3;"> <VBox alignment="CENTER" spacing="20.0" maxWidth="400" maxHeight="350"
+          style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+
+        <children>
+            <Label text="University Spot">
+                <font>
+                    <Font name="Arial Bold" size="28.0"/>
+                </font>
+                <style>-fx-text-fill: #333333;</style>
+            </Label>
+            
+            <Label text="Benvenuto!" style="-fx-font-size: 16px; -fx-text-fill: #666666;" />
+
+            <Region prefHeight="10.0" />
+
+            <Button fx:id="registra" text="REGISTRATI" onAction="#clickRegistrazione"
+                    maxWidth="Infinity" prefHeight="45.0"
+                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;"/>
+
+            <Label text="oppure" style="-fx-font-size: 14px; -fx-text-fill: #999999;"/>
+
+            <Button fx:id="accedi" text="ACCEDI" onAction="#clickAccedi"
+                    maxWidth="Infinity" prefHeight="45.0"
+                    style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-border-color: #007bff; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-weight: bold; -fx-cursor: hand;"/>
+
+        </children>
+    </VBox>
+
+</StackPane>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="appolloni.migliano.gui.GUICreazioneGruppo"
+           style="-fx-background-color: #eef2f3;">
+
+    <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+        <content>
+            <StackPane>
+                <padding><Insets top="30" bottom="30"/></padding>
+
+                <VBox alignment="TOP_CENTER" spacing="15.0" maxWidth="450"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <children>
+                        <Label text="Nuovo Gruppo di Studio" textFill="#333333">
+                            <font><Font name="Arial Bold" size="22.0"/></font>
+                        </Label>
+                        <Label text="Organizza il tuo studio con altri studenti" textFill="#777777"/>
+                        
+                        <Separator />
+                        
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Nome del Gruppo" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <TextField fx:id="txtNome" promptText="Es. Analisi 1 - Prof. Rossi" style="-fx-background-radius: 5;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Materia" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <TextField fx:id="txtMateria" promptText="Es. Matematica" style="-fx-background-radius: 5;"/>
+                        </VBox>
+
+                        <Separator />
+                        
+                        <Label text="Dove vi incontrerete?" style="-fx-font-weight: bold; -fx-text-fill: #007bff;"/>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="1. Inserisci la Città" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <TextField fx:id="txtCitta" promptText="Es. Roma" style="-fx-background-radius: 5;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="2. Seleziona la Struttura" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <Label text="(Clicca sulla freccia per cercare le strutture nella città inserita)" style="-fx-font-size: 10px; -fx-text-fill: #888;"/>
+                            <ComboBox fx:id="comboLuogo" promptText="Seleziona una struttura..." maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #ccc;"/>
+                        </VBox>
+                        
+                        <Region prefHeight="10"/>
+
+                        <Label fx:id="lbRisultato" text="" wrapText="true" style="-fx-font-weight: bold;"/>
+
+                        <Button fx:id="bCrea" text="CREA GRUPPO" onAction="#clickCrea" 
+                                maxWidth="Infinity" prefHeight="40"
+                                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                        
+                        <Button fx:id="btIndietro" text="Annulla" onAction="#clickIndietro" 
+                                maxWidth="Infinity"
+                                style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-underline: true; -fx-cursor: hand;"/>
+
+                    </children>
+                </VBox>
+            </StackPane>
+        </content>
+    </ScrollPane>
+
+</StackPane>

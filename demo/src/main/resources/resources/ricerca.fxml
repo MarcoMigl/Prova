@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="600.0" prefWidth="900.0" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="appolloni.migliano.gui.GUIRicerca">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: white; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 0, 5, 0, 0); -fx-z-index: 10;">
+            <Button mnemonicParsing="false" onAction="#clickIndietro" text="&lt; Indietro" style="-fx-cursor: hand;"/>
+            <Label text="Ricerca Avanzata" textFill="#333">
+                <font><Font name="Arial Bold" size="20.0" /></font>
+            </Label>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.3" style="-fx-background-color: transparent;">
+            
+            <VBox spacing="15.0" style="-fx-background-color: #f8f9fa; -fx-padding: 20;">
+                <Label text="Imposta Filtri" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                
+                <VBox spacing="5">
+                    <Label text="Cosa stai cercando?" textFill="#555"/>
+                    <ComboBox fx:id="comboScelta" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #ccc;"/>
+                </VBox>
+                
+                <VBox fx:id="boxGruppi" spacing="10.0" visible="false" managed="false" 
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 0);">
+                    <Label text="Dettagli Gruppo" style="-fx-font-weight: bold; -fx-text-fill: #007bff;" />
+                    <TextField fx:id="txtGruppoNome" promptText="Nome del gruppo..." />
+                    <TextField fx:id="txtGruppoMateria" promptText="Materia (es. Analisi)..." />
+                    <TextField fx:id="txtGruppoCitta" promptText="Città..." />
+                </VBox>
+
+                <VBox fx:id="boxStrutture" spacing="10.0" visible="false" managed="false"
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 0);">
+                    <Label text="Dettagli Struttura" style="-fx-font-weight: bold; -fx-text-fill: #e6a500;" />
+                    <TextField fx:id="txtStrutturaNome" promptText="Nome struttura..." />
+                    <TextField fx:id="txtStrutturaCitta" promptText="Città..." />
+                    <Label text="Tipo:" style="-fx-font-size: 10px;"/>
+                    <ComboBox fx:id="comboStrutturaTipo" maxWidth="Infinity" />
+                </VBox>
+
+                <Label fx:id="lblErrore" textFill="RED" wrapText="true" />
+                
+                <Button fx:id="btnCerca" onAction="#clickCerca" text="AVVIA RICERCA" maxWidth="Infinity" 
+                        style="-fx-background-color: #333; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10; -fx-cursor: hand;" />
+            </VBox>
+
+            <VBox style="-fx-background-color: white;">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                
+                <Label text="Risultati della ricerca" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="containerRisultati" spacing="10.0">
+                            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </VBox>
+
+        </SplitPane>
+    </center>
+</BorderPane>

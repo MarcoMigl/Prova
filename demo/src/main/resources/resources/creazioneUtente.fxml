@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="appolloni.migliano.gui.CreazioneGUIController"
+           style="-fx-background-color: #eef2f3;">
+
+    <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+        <content>
+            
+            <StackPane>
+                <padding>
+                    <Insets top="30" bottom="30"/> </padding>
+
+                <VBox alignment="TOP_CENTER" spacing="15.0" maxWidth="450"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <children>
+                        <Label text="Crea un account" textFill="#333333">
+                            <font>
+                                <Font name="Arial Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Compila i campi per iniziare" style="-fx-text-fill: #888888; -fx-font-size: 12px;"/>
+
+                        <Separator />
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Chi sei?" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                            <ComboBox fx:id="comboTipo" promptText="Seleziona il tipo di utente..." 
+                                      maxWidth="Infinity"
+                                      style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 5;"/>
+                        </VBox>
+
+                        <GridPane hgap="10" vgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50" />
+                                <ColumnConstraints percentWidth="50" />
+                            </columnConstraints>
+                            
+                            <VBox spacing="5" GridPane.columnIndex="0">
+                                <Label text="Nome" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                                <TextField fx:id="txtNome" promptText="Mario" style="-fx-background-radius: 5; -fx-padding: 8; -fx-border-color: #cccccc; -fx-border-radius: 5;"/>
+                            </VBox>
+
+                            <VBox spacing="5" GridPane.columnIndex="1">
+                                <Label text="Cognome" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                                <TextField fx:id="txtCognome" promptText="Rossi" style="-fx-background-radius: 5; -fx-padding: 8; -fx-border-color: #cccccc; -fx-border-radius: 5;"/>
+                            </VBox>
+                        </GridPane>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Email" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                            <TextField fx:id="txtEmail" promptText="mario.rossi@studenti.uni...it" style="-fx-background-radius: 5; -fx-padding: 8; -fx-border-color: #cccccc; -fx-border-radius: 5;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Città di residenza" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                            <TextField fx:id="txtCitta" promptText="Roma" style="-fx-background-radius: 5; -fx-padding: 8; -fx-border-color: #cccccc; -fx-border-radius: 5;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Password" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+                            <PasswordField fx:id="txtPass" promptText="Scegli una password sicura" style="-fx-background-radius: 5; -fx-padding: 8; -fx-border-color: #cccccc; -fx-border-radius: 5;"/>
+                        </VBox>
+
+                        <VBox fx:id="boxDatiHost" spacing="10" visible="false" managed="false" 
+                              style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-border-color: #dee2e6; -fx-border-radius: 5; -fx-background-radius: 5;">
+                            
+                            <Label text="Dettagli Attività Commerciale" style="-fx-font-weight: bold; -fx-text-fill: #007bff;"/>
+                            
+                            <VBox spacing="5">
+                                <Label text="Nome Attività" style="-fx-text-fill: #555555;"/>
+                                <TextField fx:id="txtNomeAttivita" promptText="Es. Bar Università" style="-fx-background-radius: 3;"/>
+                            </VBox>
+                            
+                            <VBox spacing="5">
+                                <Label text="Categoria" style="-fx-text-fill: #555555;"/>
+                                <ComboBox fx:id="comboTipoAtt" promptText="Seleziona categoria..." maxWidth="Infinity"/>
+                            </VBox>
+                        </VBox>
+
+                        <Region prefHeight="10.0" />
+
+                        <Label fx:id="lblRisultato" text="" wrapText="true" style="-fx-text-fill: #dc3545; -fx-font-weight: bold;"/>
+
+                        <Button fx:id="btnRegistra" text="COMPLETA REGISTRAZIONE" onAction="#clickRegistra"
+                                maxWidth="Infinity" prefHeight="45.0"
+                                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;"/>
+
+                        <Button fx:id="btIndietro" text="Annulla e torna indietro" onAction="#clickIndietro"
+                                maxWidth="Infinity"
+                                style="-fx-background-color: transparent; -fx-text-fill: #6c757d; -fx-underline: true; -fx-cursor: hand;"/>
+
+                    </children>
+                </VBox>
+            </StackPane>
+        </content>
+    </ScrollPane>
+
+</StackPane>

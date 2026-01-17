@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="appolloni.migliano.gui.CreazioneGUIStrutture"
+            style="-fx-background-color: #eef2f3; -fx-background: #eef2f3;">
+
+    <content>
+        <StackPane>
+            <padding><Insets top="30" bottom="30"/></padding>
+
+            <VBox alignment="TOP_CENTER" spacing="15.0" maxWidth="500"
+                  style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+                
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+                
+                <children>
+                    <Label text="Nuova Struttura" textFill="#333333">
+                        <font><Font name="Arial Bold" size="24.0" /></font>
+                    </Label>
+                    <Label text="Completa il profilo della tua attività" textFill="#777777"/>
+                    
+                    <Separator />
+                    
+                    <VBox spacing="5" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 5; -fx-border-color: #dee2e6; -fx-border-radius: 5;">
+                        <Label text="Riepilogo Gestore" style="-fx-font-weight: bold; -fx-text-fill: #007bff;" />
+                        <GridPane hgap="10" vgap="5">
+                             <Label text="Gestore:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-text-fill: #555;"/>
+                             <Label fx:id="lblGestore" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+                             
+                             <Label text="Attività:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-text-fill: #555;"/>
+                             <Label fx:id="lblNomeAttivita" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+                             
+                             <Label text="Categoria:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-text-fill: #555;"/>
+                             <Label fx:id="lblTipoAttivita" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+                        </GridPane>
+                    </VBox>
+
+                    <VBox alignment="CENTER_LEFT" spacing="5">
+                          <Label text="Tipo Struttura" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                          <ComboBox fx:id="comboTipo" promptText="Seleziona..." maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #ccc;"/>
+                    </VBox>
+
+                    <GridPane hgap="10" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="40"/>
+                            <ColumnConstraints percentWidth="60"/>
+                        </columnConstraints>
+                        <VBox spacing="5" GridPane.columnIndex="0">
+                            <Label text="Città" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <TextField fx:id="txtCitta" style="-fx-background-radius: 5;"/>
+                        </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="1">
+                            <Label text="Indirizzo" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                            <TextField fx:id="txtIndirizzo" style="-fx-background-radius: 5;"/>
+                        </VBox>
+                    </GridPane>
+
+                    <Label text="Foto Principale" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-border-color: #dashed; -fx-border-style: dashed; -fx-border-color: #ccc; -fx-padding: 10;">
+                          <ImageView fx:id="imgAnteprima" fitHeight="80.0" fitWidth="120.0" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);" />
+                          <VBox spacing="5" alignment="CENTER_LEFT">
+                              <Button text="Scegli Immagine" onAction="#clickCaricaFoto" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-cursor: hand;" />
+                              <Label fx:id="lblNomeFile" text="Nessun file" textFill="#999" style="-fx-font-size: 11px;" />
+                          </VBox>
+                    </HBox>
+
+                    <VBox alignment="CENTER_LEFT" spacing="5">
+                          <Label text="Orari di apertura" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                          <TextField fx:id="txtOrario" promptText="Es: 09:00 - 20:00" style="-fx-background-radius: 5;"/>
+                    </VBox>
+
+                    <Label text="Servizi Offerti" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <HBox spacing="20">
+                          <CheckBox fx:id="checkWifi" text="Connessione Wi-Fi" />
+                          <CheckBox fx:id="checkRistorazione" text="Ristorazione / Bar" />
+                    </HBox>
+
+                    <Separator />
+
+                    <Label fx:id="lblRisultato" text="" wrapText="true" style="-fx-font-weight: bold;"/>
+
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Indietro" onAction="#clickIndietro" prefWidth="120"
+                                style="-fx-background-color: white; -fx-text-fill: #666; -fx-border-color: #ccc; -fx-cursor: hand;" />
+                        
+                        <Button text="CONFERMA E REGISTRA" onAction="#clickRegistra" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" />
+                    </HBox>
+
+                </children>
+            </VBox>
+        </StackPane>
+    </content>
+</ScrollPane>
